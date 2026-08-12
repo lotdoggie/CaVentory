@@ -67,7 +67,7 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblTitulo"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="79" green="4e" red="1f" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Panel del colaborador"/></Properties></Component>
-    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1d"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1f"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuarioActual"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblRolActual"><Properties><Property name="text" type="java.lang.String" value="Rol:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblResumen"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="12" style="1"/></Property><Property name="text" type="java.lang.String" value="Productos: 0 | Existencia baja: 0 | Mis movimientos de hoy: 0"/></Properties></Component>

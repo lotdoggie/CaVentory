@@ -109,7 +109,7 @@
     <Component class="javax.swing.JLabel" name="lblVersion">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Versión 26.1d"/>
+        <Property name="text" type="java.lang.String" value="Versión 26.1f"/>
       </Properties>
     </Component>
   </SubComponents>

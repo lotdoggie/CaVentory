@@ -53,6 +53,7 @@
                 <Component id="btnResumen" pref="280" max="32767" attributes="0"/>
               </Group>
             </Group>
+            <Component id="btnReportes" pref="585" max="32767" attributes="0"/>
             <Component id="lblPermisos" pref="585" max="32767" attributes="0"/>
             <Group type="102" alignment="1" attributes="0">
               <Component id="btnActualizar" min="-2" pref="130" max="-2" attributes="0"/>
@@ -98,6 +99,8 @@
             <Component id="btnProveedores" pref="55" max="32767" attributes="0"/>
             <Component id="btnResumen" max="32767" attributes="0"/>
           </Group>
+          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+          <Component id="btnReportes" min="-2" pref="45" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           <Component id="lblPermisos" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
@@ -119,7 +122,7 @@
         <Property name="text" type="java.lang.String" value="Panel del administrador"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1d"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1f"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuarioActual"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblRolActual"><Properties><Property name="text" type="java.lang.String" value="Rol:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblResumen"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="12" style="1"/></Property><Property name="text" type="java.lang.String" value="Productos: 0 | Existencia baja: 0 | Movimientos de hoy: 0"/></Properties></Component>
@@ -145,8 +148,12 @@
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProveedoresActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnResumen">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="a3" green="6f" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Resumen de inventario"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f5" green="eb" red="e1" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Resumen de inventario"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResumenActionPerformed"/></Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnReportes">
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="a3" green="6f" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Reportes y análisis"/></Properties>
+      <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportesActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPermisos">
       <Properties><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Permisos del usuario"/></Properties>

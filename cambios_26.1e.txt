@@ -1,0 +1,8 @@
+Cambios versión 26.1e
+
+- Se agregó el módulo de reportes y análisis.
+- Se puede consultar un resumen general del sistema.
+- Se agregaron reportes de inventario y existencia baja.
+- Se agregaron reportes de movimientos por periodo.
+- Se agregaron reportes de categorías, proveedores y colaboradores.
+- Los reportes se pueden imprimir o guardar como PDF.

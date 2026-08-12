@@ -72,7 +72,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         });
 
         lblVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersion.setText("Versión 26.1d");
+        lblVersion.setText("Versión 26.1f");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

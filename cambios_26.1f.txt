@@ -1,0 +1,8 @@
+Cambios versión 26.1f
+
+- El botón de reportes ahora guarda el archivo directamente.
+- Se quitó la ventana de impresión.
+- El usuario puede elegir el nombre y la carpeta del PDF.
+- Las tablas del PDF ahora ocupan mejor la hoja.
+- Los reportes se generan en formato horizontal.
+- Se agregaron varias páginas cuando hay muchos registros.

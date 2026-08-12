@@ -76,7 +76,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Panel del colaborador");
 
-        lblVersion.setText("CaVentory 26.1d");
+        lblVersion.setText("CaVentory 26.1f");
 
         lblUsuarioActual.setText("Usuario:");
 
