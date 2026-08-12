@@ -4,6 +4,8 @@
  */
 package caventory;
 
+import caventory.ventanas.FrmInicioSesion;
+
 /**
  *
  * @author pablo
