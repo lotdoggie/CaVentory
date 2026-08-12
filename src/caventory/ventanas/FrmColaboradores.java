@@ -34,7 +34,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "SELECT id_user, nombre, usuario, contrasena, rol, activo "
+            String sql = "SELECT id_user, nombre, usuario, rol, activo "
                     + "FROM usuarios ORDER BY id_user";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             ResultSet resultado = consulta.executeQuery();
@@ -44,7 +44,6 @@ public class FrmColaboradores extends javax.swing.JFrame {
                     resultado.getInt("id_user"),
                     resultado.getString("nombre"),
                     resultado.getString("usuario"),
-                    resultado.getString("contrasena"),
                     resultado.getString("rol"),
                     resultado.getBoolean("activo")
                 });
@@ -61,10 +60,8 @@ public class FrmColaboradores extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        String contrasena = txtContrasena.getText();
-        if (txtNombre.getText().trim().isEmpty() || txtUsuario.getText().trim().isEmpty()
-                || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Completa los datos del colaborador");
+        if (txtNombre.getText().trim().isEmpty() || txtUsuario.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escribe el nombre y el usuario");
             return false;
         }
         return true;
@@ -89,9 +86,9 @@ public class FrmColaboradores extends javax.swing.JFrame {
         txtId.setText(tablaColaboradores.getValueAt(fila, 0).toString());
         txtNombre.setText(tablaColaboradores.getValueAt(fila, 1).toString());
         txtUsuario.setText(tablaColaboradores.getValueAt(fila, 2).toString());
-        txtContrasena.setText(tablaColaboradores.getValueAt(fila, 3).toString());
-        cmbRol.setSelectedItem(tablaColaboradores.getValueAt(fila, 4).toString());
-        chkActivo.setSelected((Boolean) tablaColaboradores.getValueAt(fila, 5));
+        txtContrasena.setText("");
+        cmbRol.setSelectedItem(tablaColaboradores.getValueAt(fila, 3).toString());
+        chkActivo.setSelected((Boolean) tablaColaboradores.getValueAt(fila, 4));
     }
 
     @SuppressWarnings("unchecked")
@@ -107,7 +104,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
         lblUsuario = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         lblContrasena = new javax.swing.JLabel();
-        txtContrasena = new javax.swing.JTextField();
+        txtContrasena = new javax.swing.JPasswordField();
         lblRol = new javax.swing.JLabel();
         cmbRol = new javax.swing.JComboBox<>();
         chkActivo = new javax.swing.JCheckBox();
@@ -178,11 +175,11 @@ public class FrmColaboradores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Usuario", "Contraseña", "Rol", "Activo"
+                "ID", "Nombre", "Usuario", "Rol", "Activo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -294,6 +291,10 @@ public class FrmColaboradores extends javax.swing.JFrame {
         if (validarCampos() == false) {
             return;
         }
+        if (txtContrasena.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escribe una contraseña");
+            return;
+        }
 
         Connection conexion = Conexion.conectar();
         if (conexion == null) {
@@ -346,15 +347,27 @@ public class FrmColaboradores extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "UPDATE usuarios SET nombre = ?, usuario = ?, contrasena = ?, "
-                    + "rol = ?, activo = ? WHERE id_user = ?";
+            String sql;
+            if (txtContrasena.getText().isEmpty()) {
+                sql = "UPDATE usuarios SET nombre = ?, usuario = ?, rol = ?, activo = ? "
+                        + "WHERE id_user = ?";
+            } else {
+                sql = "UPDATE usuarios SET nombre = ?, usuario = ?, contrasena = ?, "
+                        + "rol = ?, activo = ? WHERE id_user = ?";
+            }
             PreparedStatement consulta = conexion.prepareStatement(sql);
             consulta.setString(1, txtNombre.getText().trim());
             consulta.setString(2, txtUsuario.getText().trim());
-            consulta.setString(3, txtContrasena.getText());
-            consulta.setString(4, cmbRol.getSelectedItem().toString());
-            consulta.setBoolean(5, chkActivo.isSelected());
-            consulta.setInt(6, idUsuario);
+            if (txtContrasena.getText().isEmpty()) {
+                consulta.setString(3, cmbRol.getSelectedItem().toString());
+                consulta.setBoolean(4, chkActivo.isSelected());
+                consulta.setInt(5, idUsuario);
+            } else {
+                consulta.setString(3, txtContrasena.getText());
+                consulta.setString(4, cmbRol.getSelectedItem().toString());
+                consulta.setBoolean(5, chkActivo.isSelected());
+                consulta.setInt(6, idUsuario);
+            }
             consulta.executeUpdate();
 
             consulta.close();
@@ -435,7 +448,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tablaColaboradores;
-    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;

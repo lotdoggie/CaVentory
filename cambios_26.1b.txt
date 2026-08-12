@@ -1,0 +1,8 @@
+Cambios versión 26.1b
+
+- Ahora las contraseñas no se ven al escribirlas.
+- Las contraseñas ya no aparecen en la tabla de colaboradores.
+- Se agregó información del inventario en los menús.
+- Se agregó un botón para actualizar la información.
+- Se agregó el módulo Mi actividad para los colaboradores.
+- Mi actividad muestra los últimos movimientos del usuario.

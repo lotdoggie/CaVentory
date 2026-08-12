@@ -37,6 +37,7 @@
               <EmptySpace pref="0" max="32767" attributes="0"/>
               <Component id="lblRolActual" min="-2" pref="250" max="-2" attributes="0"/>
             </Group>
+            <Component id="lblResumen" pref="585" max="32767" attributes="0"/>
             <Component id="lblInstruccion" min="-2" max="-2" attributes="0"/>
             <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -53,6 +54,7 @@
             </Group>
             <Component id="lblPermisos" pref="585" max="32767" attributes="0"/>
             <Group type="102" alignment="1" attributes="0">
+              <Component id="btnActualizar" min="-2" pref="130" max="-2" attributes="0"/>
               <EmptySpace pref="0" max="32767" attributes="0"/>
               <Component id="btnCerrarSesion" min="-2" pref="140" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -76,6 +78,8 @@
             <Component id="lblUsuarioActual" alignment="3" min="-2" max="-2" attributes="0"/>
             <Component id="lblRolActual" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+          <Component id="lblResumen" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           <Component id="lblInstruccion" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -97,6 +101,7 @@
           <Component id="lblPermisos" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           <Group type="103" groupAlignment="3" attributes="0">
+            <Component id="btnActualizar" alignment="3" min="-2" max="-2" attributes="0"/>
             <Component id="btnCerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/>
             <Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
@@ -112,9 +117,10 @@
         <Property name="text" type="java.lang.String" value="Panel del administrador"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1b"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuarioActual"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblRolActual"><Properties><Property name="text" type="java.lang.String" value="Rol:"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblResumen"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="12" style="1"/></Property><Property name="text" type="java.lang.String" value="Productos: 0 | Existencia baja: 0 | Movimientos de hoy: 0"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblInstruccion"><Properties><Property name="text" type="java.lang.String" value="Selecciona el módulo que deseas utilizar"/></Properties></Component>
     <Component class="javax.swing.JButton" name="btnProductos">
       <Properties><Property name="text" type="java.lang.String" value="Productos"/></Properties>
@@ -142,6 +148,10 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lblPermisos">
       <Properties><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Permisos del usuario"/></Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnActualizar">
+      <Properties><Property name="text" type="java.lang.String" value="Actualizar datos"/></Properties>
+      <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion">
       <Properties><Property name="text" type="java.lang.String" value="Cerrar sesión"/></Properties>

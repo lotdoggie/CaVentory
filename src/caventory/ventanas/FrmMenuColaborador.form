@@ -29,10 +29,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
             <Group type="102" attributes="0"><Component id="lblTitulo" min="-2" max="-2" attributes="0"/><EmptySpace pref="0" max="32767" attributes="0"/><Component id="lblVersion" min="-2" max="-2" attributes="0"/></Group>
             <Group type="102" attributes="0"><Component id="lblUsuarioActual" min="-2" pref="250" max="-2" attributes="0"/><EmptySpace pref="0" max="32767" attributes="0"/><Component id="lblRolActual" min="-2" pref="200" max="-2" attributes="0"/></Group>
+            <Component id="lblResumen" pref="485" max="32767" attributes="0"/>
             <Component id="lblInstruccion" min="-2" max="-2" attributes="0"/>
             <Group type="102" attributes="0"><Component id="btnConsultarProductos" min="-2" pref="230" max="-2" attributes="0"/><EmptySpace min="-2" pref="25" max="-2" attributes="0"/><Component id="btnMovimientos" min="-2" pref="230" max="-2" attributes="0"/></Group>
+            <Component id="btnMiActividad" pref="485" max="32767" attributes="0"/>
             <Component id="lblPermisos" pref="485" max="32767" attributes="0"/>
-            <Group type="102" alignment="1" attributes="0"><EmptySpace pref="0" max="32767" attributes="0"/><Component id="btnCerrarSesion" min="-2" pref="140" max="-2" attributes="0"/><EmptySpace min="-2" pref="15" max="-2" attributes="0"/><Component id="btnSalir" min="-2" pref="100" max="-2" attributes="0"/></Group>
+            <Group type="102" alignment="1" attributes="0"><Component id="btnActualizar" min="-2" pref="130" max="-2" attributes="0"/><EmptySpace pref="0" max="32767" attributes="0"/><Component id="btnCerrarSesion" min="-2" pref="140" max="-2" attributes="0"/><EmptySpace min="-2" pref="15" max="-2" attributes="0"/><Component id="btnSalir" min="-2" pref="100" max="-2" attributes="0"/></Group>
           </Group>
           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
         </Group>
@@ -45,14 +47,18 @@
           <Group type="103" groupAlignment="3" attributes="0"><Component id="lblTitulo" alignment="3" min="-2" max="-2" attributes="0"/><Component id="lblVersion" alignment="3" min="-2" max="-2" attributes="0"/></Group>
           <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
           <Group type="103" groupAlignment="3" attributes="0"><Component id="lblUsuarioActual" alignment="3" min="-2" max="-2" attributes="0"/><Component id="lblRolActual" alignment="3" min="-2" max="-2" attributes="0"/></Group>
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+          <Component id="lblResumen" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
           <Component id="lblInstruccion" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
           <Group type="103" groupAlignment="0" max="-2" attributes="0"><Component id="btnConsultarProductos" pref="60" max="32767" attributes="0"/><Component id="btnMovimientos" max="32767" attributes="0"/></Group>
+          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+          <Component id="btnMiActividad" min="-2" pref="45" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           <Component id="lblPermisos" min="-2" max="-2" attributes="0"/>
           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="3" attributes="0"><Component id="btnCerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/><Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/></Group>
+          <Group type="103" groupAlignment="3" attributes="0"><Component id="btnActualizar" alignment="3" min="-2" max="-2" attributes="0"/><Component id="btnCerrarSesion" alignment="3" min="-2" max="-2" attributes="0"/><Component id="btnSalir" alignment="3" min="-2" max="-2" attributes="0"/></Group>
           <EmptySpace pref="25" max="32767" attributes="0"/>
         </Group>
       </Group>
@@ -60,13 +66,16 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblTitulo"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="22" style="1"/></Property><Property name="text" type="java.lang.String" value="Panel del colaborador"/></Properties></Component>
-    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1b"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuarioActual"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblRolActual"><Properties><Property name="text" type="java.lang.String" value="Rol:"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblResumen"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="12" style="1"/></Property><Property name="text" type="java.lang.String" value="Productos: 0 | Existencia baja: 0 | Mis movimientos de hoy: 0"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblInstruccion"><Properties><Property name="text" type="java.lang.String" value="Selecciona la actividad que deseas realizar"/></Properties></Component>
     <Component class="javax.swing.JButton" name="btnConsultarProductos"><Properties><Property name="text" type="java.lang.String" value="Consultar inventario"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConsultarProductosActionPerformed"/></Events></Component>
     <Component class="javax.swing.JButton" name="btnMovimientos"><Properties><Property name="text" type="java.lang.String" value="Registrar entrada o salida"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMovimientosActionPerformed"/></Events></Component>
+    <Component class="javax.swing.JButton" name="btnMiActividad"><Properties><Property name="text" type="java.lang.String" value="Mi actividad"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMiActividadActionPerformed"/></Events></Component>
     <Component class="javax.swing.JLabel" name="lblPermisos"><Properties><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Puedes consultar existencias y registrar movimientos."/></Properties></Component>
+    <Component class="javax.swing.JButton" name="btnActualizar"><Properties><Property name="text" type="java.lang.String" value="Actualizar datos"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/></Events></Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion"><Properties><Property name="text" type="java.lang.String" value="Cerrar sesión"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarSesionActionPerformed"/></Events></Component>
     <Component class="javax.swing.JButton" name="btnSalir"><Properties><Property name="text" type="java.lang.String" value="Salir"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/></Events></Component>
   </SubComponents>
