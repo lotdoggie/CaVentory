@@ -70,11 +70,13 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CaVentory - Colaborador");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Panel del colaborador");
 
-        lblVersion.setText("CaVentory 26.1b");
+        lblVersion.setText("CaVentory 26.1d");
 
         lblUsuarioActual.setText("Usuario:");
 
@@ -83,9 +85,13 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         lblResumen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblResumen.setText("Productos: 0 | Existencia baja: 0 | Mis movimientos de hoy: 0");
 
-        lblInstruccion.setText("Selecciona la actividad que deseas realizar");
+        lblInstruccion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblInstruccion.setText("Acciones disponibles");
 
         btnConsultarProductos.setText("Consultar inventario");
+        btnConsultarProductos.setBackground(new java.awt.Color(47, 111, 163));
+        btnConsultarProductos.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsultarProductos.setFocusPainted(false);
         btnConsultarProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConsultarProductosActionPerformed(evt);
@@ -93,13 +99,17 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         });
 
         btnMovimientos.setText("Registrar entrada o salida");
+        btnMovimientos.setBackground(new java.awt.Color(225, 235, 245));
+        btnMovimientos.setFocusPainted(false);
         btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovimientosActionPerformed(evt);
             }
         });
 
-        btnMiActividad.setText("Mi actividad");
+        btnMiActividad.setText("Historial de movimientos");
+        btnMiActividad.setBackground(new java.awt.Color(225, 235, 245));
+        btnMiActividad.setFocusPainted(false);
         btnMiActividad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMiActividadActionPerformed(evt);
@@ -110,6 +120,9 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         lblPermisos.setText("Puedes consultar existencias y registrar movimientos.");
 
         btnActualizar.setText("Actualizar datos");
+        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
@@ -147,11 +160,11 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
                         .addComponent(lblRolActual, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblResumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblInstruccion)
+                    .addComponent(btnConsultarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnConsultarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(25, 25, 25)
-                        .addComponent(btnMovimientos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnMiActividad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMiActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lblPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,11 +190,11 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
                 .addGap(22, 22, 22)
                 .addComponent(lblInstruccion)
                 .addGap(12, 12, 12)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnConsultarProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                    .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnConsultarProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(btnMiActividad, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(btnMiActividad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
                 .addComponent(lblPermisos)
                 .addGap(20, 20, 20)

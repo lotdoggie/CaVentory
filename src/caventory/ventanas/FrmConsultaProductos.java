@@ -92,15 +92,21 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Consulta de inventario");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Consulta de inventario");
 
         lblUsuario.setText("Usuario:");
 
+        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblBuscar.setText("Buscar por código o nombre");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(47, 111, 163));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFocusPainted(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -130,6 +136,8 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaProductos.setRowHeight(24);
+        tablaProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaProductos);
 
         lblResumen.setText("Productos mostrados: 0 | Con existencia baja: 0");

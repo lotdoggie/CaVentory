@@ -127,8 +127,10 @@ public class FrmMovimientos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Entradas y salidas");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Entradas y salidas");
 
         lblUsuario.setText("Usuario:");
@@ -152,6 +154,9 @@ public class FrmMovimientos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtObservacion);
 
         btnRegistrar.setText("Registrar movimiento");
+        btnRegistrar.setBackground(new java.awt.Color(47, 111, 163));
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setFocusPainted(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegistrarActionPerformed(evt);
@@ -165,7 +170,8 @@ public class FrmMovimientos extends javax.swing.JFrame {
             }
         });
 
-        lblHistorial.setText("Historial temporal de movimientos");
+        lblHistorial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblHistorial.setText("Movimientos recientes");
 
         tablaMovimientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -183,6 +189,8 @@ public class FrmMovimientos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaMovimientos.setRowHeight(24);
+        tablaMovimientos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tablaMovimientos);
 
         btnCerrar.setText("Cerrar");

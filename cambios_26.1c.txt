@@ -1,0 +1,7 @@
+Cambios versión 26.1c
+
+- Se acomodaron mejor los botones del menú del colaborador.
+- Mi actividad ahora se llama Historial de movimientos.
+- Se agregó un botón para mostrar los movimientos de hoy.
+- Se agregó un botón para volver a mostrar todos.
+- El historial muestra cuántas entradas y salidas hay.

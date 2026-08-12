@@ -1,0 +1,8 @@
+Cambios versión 26.1d
+
+- Se mejoró un poco el diseño de todas las ventanas.
+- Los títulos ahora tienen el mismo color y tamaño.
+- Los botones principales ahora son azules.
+- Los botones para eliminar ahora son rojos.
+- Las tablas tienen más espacio entre filas.
+- Se acomodaron mejor los textos de cada módulo.

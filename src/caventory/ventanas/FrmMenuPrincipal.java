@@ -80,11 +80,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CaVentory - Administrador");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Panel del administrador");
 
-        lblVersion.setText("CaVentory 26.1b");
+        lblVersion.setText("CaVentory 26.1d");
 
         lblUsuarioActual.setText("Usuario:");
 
@@ -93,9 +95,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         lblResumen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblResumen.setText("Productos: 0 | Existencia baja: 0 | Movimientos de hoy: 0");
 
-        lblInstruccion.setText("Selecciona el módulo que deseas utilizar");
+        lblInstruccion.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblInstruccion.setText("Módulos del sistema");
 
         btnProductos.setText("Productos");
+        btnProductos.setBackground(new java.awt.Color(225, 235, 245));
+        btnProductos.setFocusPainted(false);
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductosActionPerformed(evt);
@@ -103,6 +108,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnMovimientos.setText("Entradas y salidas");
+        btnMovimientos.setBackground(new java.awt.Color(225, 235, 245));
+        btnMovimientos.setFocusPainted(false);
         btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMovimientosActionPerformed(evt);
@@ -110,6 +117,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnCategorias.setText("Categorías");
+        btnCategorias.setBackground(new java.awt.Color(225, 235, 245));
+        btnCategorias.setFocusPainted(false);
         btnCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategoriasActionPerformed(evt);
@@ -117,6 +126,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnColaboradores.setText("Colaboradores");
+        btnColaboradores.setBackground(new java.awt.Color(225, 235, 245));
+        btnColaboradores.setFocusPainted(false);
         btnColaboradores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnColaboradoresActionPerformed(evt);
@@ -124,6 +135,8 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnProveedores.setText("Proveedores");
+        btnProveedores.setBackground(new java.awt.Color(225, 235, 245));
+        btnProveedores.setFocusPainted(false);
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProveedoresActionPerformed(evt);
@@ -131,6 +144,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnResumen.setText("Resumen de inventario");
+        btnResumen.setBackground(new java.awt.Color(47, 111, 163));
+        btnResumen.setForeground(new java.awt.Color(255, 255, 255));
+        btnResumen.setFocusPainted(false);
         btnResumen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResumenActionPerformed(evt);
@@ -141,6 +157,9 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         lblPermisos.setText("Permisos del usuario");
 
         btnActualizar.setText("Actualizar datos");
+        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);

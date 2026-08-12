@@ -40,8 +40,10 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CaVentory - Inicio de sesión");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("CaVentory");
 
@@ -53,6 +55,9 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         lblContrasena.setText("Contraseña");
 
         btnIngresar.setText("Ingresar");
+        btnIngresar.setBackground(new java.awt.Color(47, 111, 163));
+        btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
+        btnIngresar.setFocusPainted(false);
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
@@ -67,7 +72,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         });
 
         lblVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersion.setText("Versión 26.1b");
+        lblVersion.setText("Versión 26.1d");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

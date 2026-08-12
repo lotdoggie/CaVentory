@@ -140,8 +140,10 @@ public class FrmResumenInventario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Resumen de inventario");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Resumen de inventario");
 
         lblAviso.setText("Información general del sistema");
@@ -156,6 +158,7 @@ public class FrmResumenInventario extends javax.swing.JFrame {
 
         lblCatalogos.setText("Categorías: 0 | Proveedores activos: 0 | Colaboradores activos: 0");
 
+        lblDetalle.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblDetalle.setText("Productos que necesitan revisión o reabastecimiento");
 
         tablaExistenciaBaja.setModel(new javax.swing.table.DefaultTableModel(
@@ -174,9 +177,14 @@ public class FrmResumenInventario extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaExistenciaBaja.setRowHeight(24);
+        tablaExistenciaBaja.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tablaExistenciaBaja);
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);

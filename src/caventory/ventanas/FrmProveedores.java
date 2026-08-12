@@ -137,11 +137,14 @@ public class FrmProveedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Proveedores");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Proveedores");
 
-        lblAviso.setText("Módulo del administrador");
+        lblAviso.setForeground(new java.awt.Color(90, 90, 90));
+        lblAviso.setText("Administración de proveedores");
 
         lblId.setText("ID");
 
@@ -165,6 +168,9 @@ public class FrmProveedores extends javax.swing.JFrame {
         chkActivo.setText("Proveedor activo");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setFocusPainted(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -179,6 +185,9 @@ public class FrmProveedores extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setBackground(new java.awt.Color(176, 64, 64));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setFocusPainted(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -208,6 +217,8 @@ public class FrmProveedores extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaProveedores.setRowHeight(24);
+        tablaProveedores.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaProveedoresMouseClicked(evt);

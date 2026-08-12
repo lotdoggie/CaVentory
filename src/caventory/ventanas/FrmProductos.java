@@ -226,8 +226,10 @@ public class FrmProductos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Productos");
         setResizable(false);
+        setBackground(new java.awt.Color(245, 247, 250));
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
         lblTitulo.setText("Productos");
 
         lblRol.setText("Rol:");
@@ -255,6 +257,9 @@ public class FrmProductos extends javax.swing.JFrame {
         lblMinimo.setText("Stock mínimo");
 
         btnGuardar.setText("Guardar");
+        btnGuardar.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setFocusPainted(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
@@ -269,6 +274,9 @@ public class FrmProductos extends javax.swing.JFrame {
         });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.setBackground(new java.awt.Color(176, 64, 64));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setFocusPainted(false);
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEliminarActionPerformed(evt);
@@ -282,9 +290,13 @@ public class FrmProductos extends javax.swing.JFrame {
             }
         });
 
+        lblBuscar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblBuscar.setText("Buscar por código o nombre");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.setBackground(new java.awt.Color(47, 111, 163));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFocusPainted(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
@@ -314,6 +326,8 @@ public class FrmProductos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaProductos.setRowHeight(24);
+        tablaProductos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaProductosMouseClicked(evt);
