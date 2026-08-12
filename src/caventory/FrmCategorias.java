@@ -37,10 +37,15 @@ public class FrmCategorias extends javax.swing.JFrame {
             ResultSet resultado = consulta.executeQuery();
 
             while (resultado.next()) {
+                String descripcion = resultado.getString("descripcion");
+                if (descripcion == null) {
+                    descripcion = "";
+                }
+
                 modelo.addRow(new Object[]{
                     resultado.getInt("id_categoria"),
                     resultado.getString("nombre"),
-                    resultado.getString("descripcion")
+                    descripcion
                 });
             }
 
@@ -62,8 +67,14 @@ public class FrmCategorias extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        if (txtNombre.getText().isEmpty() || txtDescripcion.getText().isEmpty()) {
+        if (txtNombre.getText().trim().isEmpty()
+                || txtDescripcion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escribe el nombre y la descripcion");
+            return false;
+        }
+        if (txtDescripcion.getText().trim().length() > 200) {
+            JOptionPane.showMessageDialog(this,
+                    "La descripcion no puede tener mas de 200 caracteres");
             return false;
         }
         return true;
@@ -265,8 +276,8 @@ public class FrmCategorias extends javax.swing.JFrame {
         try {
             String sql = "INSERT INTO categorias(nombre, descripcion) VALUES (?, ?)";
             PreparedStatement consulta = conexion.prepareStatement(sql);
-            consulta.setString(1, txtNombre.getText());
-            consulta.setString(2, txtDescripcion.getText());
+            consulta.setString(1, txtNombre.getText().trim());
+            consulta.setString(2, txtDescripcion.getText().trim());
             consulta.executeUpdate();
 
             consulta.close();
@@ -298,8 +309,8 @@ public class FrmCategorias extends javax.swing.JFrame {
             String sql = "UPDATE categorias SET nombre = ?, descripcion = ? "
                     + "WHERE id_categoria = ?";
             PreparedStatement consulta = conexion.prepareStatement(sql);
-            consulta.setString(1, txtNombre.getText());
-            consulta.setString(2, txtDescripcion.getText());
+            consulta.setString(1, txtNombre.getText().trim());
+            consulta.setString(2, txtDescripcion.getText().trim());
             consulta.setInt(3, Integer.parseInt(txtId.getText()));
             consulta.executeUpdate();
 

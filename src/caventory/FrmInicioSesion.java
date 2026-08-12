@@ -115,7 +115,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        String usuario = txtUsuario.getText();
+        String usuario = txtUsuario.getText().trim();
         String contrasena = txtContrasena.getText();
 
         if (usuario.isEmpty() || contrasena.isEmpty()) {
@@ -142,11 +142,18 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 CaVentory.usuarioActual = resultado.getString("usuario");
                 CaVentory.rolActual = resultado.getString("rol");
 
-                FrmMenuPrincipal menu = new FrmMenuPrincipal();
-                menu.setVisible(true);
+                if (CaVentory.rolActual.equals("Administrador")) {
+                    FrmMenuPrincipal menu = new FrmMenuPrincipal();
+                    menu.setVisible(true);
+                } else {
+                    FrmMenuColaborador menu = new FrmMenuColaborador();
+                    menu.setVisible(true);
+                }
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "Usuario o contrasena incorrectos");
+                txtContrasena.setText("");
+                txtContrasena.requestFocus();
             }
 
             resultado.close();

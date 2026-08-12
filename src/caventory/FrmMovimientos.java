@@ -65,7 +65,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
                     + "m.cantidad, m.fecha, u.usuario, m.observacion "
                     + "FROM movimientos m INNER JOIN productos p "
                     + "ON m.id_producto = p.id_producto INNER JOIN usuarios u "
-                    + "ON m.id_user = u.id_user ORDER BY m.id_movimiento";
+                    + "ON m.id_user = u.id_user ORDER BY m.fecha DESC, m.id_movimiento DESC";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             ResultSet resultado = consulta.executeQuery();
 
@@ -270,7 +270,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
         int cantidad;
         try {
-            cantidad = Integer.parseInt(txtCantidad.getText());
+            cantidad = Integer.parseInt(txtCantidad.getText().trim());
             if (cantidad <= 0) {
                 JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor que cero");
                 return;
@@ -283,6 +283,13 @@ public class FrmMovimientos extends javax.swing.JFrame {
         String producto = cmbProducto.getSelectedItem().toString();
         String codigo = producto.substring(0, producto.indexOf(" - "));
         String tipo = cmbTipo.getSelectedItem().toString();
+        String observacion = txtObservacion.getText().trim();
+
+        if (observacion.length() > 200) {
+            JOptionPane.showMessageDialog(this,
+                    "La observacion no puede tener mas de 200 caracteres");
+            return;
+        }
 
         Connection conexion = Conexion.conectar();
         if (conexion == null) {
@@ -294,7 +301,15 @@ public class FrmMovimientos extends javax.swing.JFrame {
             PreparedStatement buscarProducto = conexion.prepareStatement(sqlProducto);
             buscarProducto.setString(1, codigo);
             ResultSet resultado = buscarProducto.executeQuery();
-            resultado.next();
+
+            if (resultado.next() == false) {
+                resultado.close();
+                buscarProducto.close();
+                conexion.close();
+                JOptionPane.showMessageDialog(this, "El producto ya no existe");
+                cargarProductos();
+                return;
+            }
 
             int idProducto = resultado.getInt("id_producto");
             int existencia = resultado.getInt("existencia");
@@ -323,7 +338,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
             guardarMovimiento.setInt(2, CaVentory.idUsuarioActual);
             guardarMovimiento.setString(3, tipo);
             guardarMovimiento.setInt(4, cantidad);
-            guardarMovimiento.setString(5, txtObservacion.getText());
+            guardarMovimiento.setString(5, observacion);
             guardarMovimiento.executeUpdate();
 
             String sqlExistencia = "UPDATE productos SET existencia = ? WHERE id_producto = ?";

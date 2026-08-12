@@ -22,12 +22,33 @@ public class FrmProductos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblRol.setText("Rol: " + CaVentory.rolActual);
         cargarCategorias();
+        cargarProveedores();
         cargarDatos();
+    }
 
-        if (CaVentory.rolActual.equals("Colaborador")) {
-            btnGuardar.setEnabled(false);
-            btnEditar.setEnabled(false);
-            btnEliminar.setEnabled(false);
+    private void cargarProveedores() {
+        cmbProveedor.removeAllItems();
+        cmbProveedor.addItem("Seleccione");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT nombre FROM proveedores ORDER BY nombre";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                cmbProveedor.addItem(resultado.getString("nombre"));
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar los proveedores");
+            System.err.println(e.toString());
         }
     }
 
@@ -67,23 +88,34 @@ public class FrmProductos extends javax.swing.JFrame {
         }
         try {
             String sql = "SELECT p.id_producto, p.codigo, p.nombre, c.nombre AS categoria, "
-                    + "p.precio, p.existencia, p.stock_minimo "
+                    + "pr.nombre AS proveedor, p.precio, p.existencia, p.stock_minimo "
                     + "FROM productos p INNER JOIN categorias c "
-                    + "ON p.id_categoria = c.id_categoria ORDER BY p.id_producto";
+                    + "ON p.id_categoria = c.id_categoria INNER JOIN proveedores pr "
+                    + "ON p.id_proveedor = pr.id_proveedor ORDER BY p.id_producto";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             ResultSet resultado = consulta.executeQuery();
+            int productosBajos = 0;
 
             while (resultado.next()) {
+                int existencia = resultado.getInt("existencia");
+                int minimo = resultado.getInt("stock_minimo");
                 modelo.addRow(new Object[]{
                     resultado.getInt("id_producto"),
                     resultado.getString("codigo"),
                     resultado.getString("nombre"),
                     resultado.getString("categoria"),
+                    resultado.getString("proveedor"),
                     resultado.getDouble("precio"),
-                    resultado.getInt("existencia"),
-                    resultado.getInt("stock_minimo")
+                    existencia,
+                    minimo
                 });
+                if (existencia <= minimo) {
+                    productosBajos++;
+                }
             }
+
+            lblRol.setText("Rol: " + CaVentory.rolActual
+                    + " | Productos con existencia baja: " + productosBajos);
 
             resultado.close();
             consulta.close();
@@ -95,18 +127,25 @@ public class FrmProductos extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        if (txtCodigo.getText().isEmpty() || txtNombre.getText().isEmpty()
-                || txtPrecio.getText().isEmpty() || txtExistencia.getText().isEmpty()
-                || txtMinimo.getText().isEmpty()
-                || cmbCategoria.getSelectedIndex() == 0) {
+        if (txtCodigo.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty()
+                || txtPrecio.getText().trim().isEmpty() || txtExistencia.getText().trim().isEmpty()
+                || txtMinimo.getText().trim().isEmpty()
+                || cmbCategoria.getSelectedIndex() == 0
+                || cmbProveedor.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(this, "Completa todos los datos del producto");
             return false;
         }
 
         try {
-            Double.parseDouble(txtPrecio.getText());
-            Integer.parseInt(txtExistencia.getText());
-            Integer.parseInt(txtMinimo.getText());
+            double precio = Double.parseDouble(txtPrecio.getText());
+            int existencia = Integer.parseInt(txtExistencia.getText());
+            int minimo = Integer.parseInt(txtMinimo.getText());
+
+            if (precio < 0 || existencia < 0 || minimo < 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Precio, existencia y minimo no pueden ser negativos");
+                return false;
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Precio, existencia y minimo deben ser numeros");
             return false;
@@ -119,10 +158,12 @@ public class FrmProductos extends javax.swing.JFrame {
         txtCodigo.setText("");
         txtNombre.setText("");
         cmbCategoria.setSelectedIndex(0);
+        cmbProveedor.setSelectedIndex(0);
         txtPrecio.setText("");
         txtExistencia.setText("");
         txtMinimo.setText("");
         tablaProductos.clearSelection();
+        txtExistencia.setEditable(true);
         txtCodigo.requestFocus();
     }
 
@@ -136,9 +177,11 @@ public class FrmProductos extends javax.swing.JFrame {
         txtCodigo.setText(tablaProductos.getValueAt(fila, 1).toString());
         txtNombre.setText(tablaProductos.getValueAt(fila, 2).toString());
         cmbCategoria.setSelectedItem(tablaProductos.getValueAt(fila, 3).toString());
-        txtPrecio.setText(tablaProductos.getValueAt(fila, 4).toString());
-        txtExistencia.setText(tablaProductos.getValueAt(fila, 5).toString());
-        txtMinimo.setText(tablaProductos.getValueAt(fila, 6).toString());
+        cmbProveedor.setSelectedItem(tablaProductos.getValueAt(fila, 4).toString());
+        txtPrecio.setText(tablaProductos.getValueAt(fila, 5).toString());
+        txtExistencia.setText(tablaProductos.getValueAt(fila, 6).toString());
+        txtMinimo.setText(tablaProductos.getValueAt(fila, 7).toString());
+        txtExistencia.setEditable(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -155,6 +198,8 @@ public class FrmProductos extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         lblCategoria = new javax.swing.JLabel();
         cmbCategoria = new javax.swing.JComboBox<>();
+        lblProveedor = new javax.swing.JLabel();
+        cmbProveedor = new javax.swing.JComboBox<>();
         lblPrecio = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
         lblExistencia = new javax.swing.JLabel();
@@ -193,6 +238,10 @@ public class FrmProductos extends javax.swing.JFrame {
         lblCategoria.setText("Categoria");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
+
+        lblProveedor.setText("Proveedor");
+
+        cmbProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         lblPrecio.setText("Precio");
 
@@ -249,11 +298,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Codigo", "Nombre", "Categoria", "Precio", "Existencia", "Minimo"
+                "ID", "Codigo", "Nombre", "Categoria", "Proveedor", "Precio", "Existencia", "Minimo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -295,6 +344,8 @@ public class FrmProductos extends javax.swing.JFrame {
                             .addComponent(txtNombre)
                             .addComponent(lblCategoria)
                             .addComponent(cmbCategoria, 0, 260, Short.MAX_VALUE)
+                            .addComponent(lblProveedor)
+                            .addComponent(cmbProveedor, 0, 260, Short.MAX_VALUE)
                             .addComponent(lblPrecio)
                             .addComponent(txtPrecio)
                             .addComponent(lblExistencia)
@@ -349,6 +400,10 @@ public class FrmProductos extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
+                        .addComponent(lblProveedor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(lblPrecio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -395,19 +450,44 @@ public class FrmProductos extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "INSERT INTO productos(codigo, nombre, id_categoria, precio, "
-                    + "existencia, stock_minimo) VALUES (?, ?, "
-                    + "(SELECT id_categoria FROM categorias WHERE nombre = ?), ?, ?, ?)";
-            PreparedStatement consulta = conexion.prepareStatement(sql);
-            consulta.setString(1, txtCodigo.getText());
-            consulta.setString(2, txtNombre.getText());
-            consulta.setString(3, cmbCategoria.getSelectedItem().toString());
-            consulta.setDouble(4, Double.parseDouble(txtPrecio.getText()));
-            consulta.setInt(5, Integer.parseInt(txtExistencia.getText()));
-            consulta.setInt(6, Integer.parseInt(txtMinimo.getText()));
-            consulta.executeUpdate();
+            int existencia = Integer.parseInt(txtExistencia.getText());
 
+            String sql = "INSERT INTO productos(codigo, nombre, id_categoria, id_proveedor, "
+                    + "precio, existencia, stock_minimo) VALUES (?, ?, "
+                    + "(SELECT id_categoria FROM categorias WHERE nombre = ?), "
+                    + "(SELECT id_proveedor FROM proveedores WHERE nombre = ?), ?, ?, ?)";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtCodigo.getText().trim());
+            consulta.setString(2, txtNombre.getText().trim());
+            consulta.setString(3, cmbCategoria.getSelectedItem().toString());
+            consulta.setString(4, cmbProveedor.getSelectedItem().toString());
+            consulta.setDouble(5, Double.parseDouble(txtPrecio.getText()));
+            consulta.setInt(6, existencia);
+            consulta.setInt(7, Integer.parseInt(txtMinimo.getText()));
+            consulta.executeUpdate();
             consulta.close();
+
+            if (existencia > 0) {
+                String sqlBuscar = "SELECT id_producto FROM productos WHERE codigo = ?";
+                PreparedStatement buscar = conexion.prepareStatement(sqlBuscar);
+                buscar.setString(1, txtCodigo.getText().trim());
+                ResultSet resultado = buscar.executeQuery();
+                resultado.next();
+                int idProducto = resultado.getInt("id_producto");
+                resultado.close();
+                buscar.close();
+
+                String sqlMovimiento = "INSERT INTO movimientos(id_producto, id_user, tipo, "
+                        + "cantidad, observacion) VALUES (?, ?, 'Entrada', ?, ?)";
+                PreparedStatement movimiento = conexion.prepareStatement(sqlMovimiento);
+                movimiento.setInt(1, idProducto);
+                movimiento.setInt(2, CaVentory.idUsuarioActual);
+                movimiento.setInt(3, existencia);
+                movimiento.setString(4, "Existencia inicial");
+                movimiento.executeUpdate();
+                movimiento.close();
+            }
+
             conexion.close();
             cargarDatos();
             limpiarCampos();
@@ -435,14 +515,15 @@ public class FrmProductos extends javax.swing.JFrame {
         }
         try {
             String sql = "UPDATE productos SET codigo = ?, nombre = ?, id_categoria = "
-                    + "(SELECT id_categoria FROM categorias WHERE nombre = ?), precio = ?, "
-                    + "existencia = ?, stock_minimo = ? WHERE id_producto = ?";
+                    + "(SELECT id_categoria FROM categorias WHERE nombre = ?), id_proveedor = "
+                    + "(SELECT id_proveedor FROM proveedores WHERE nombre = ?), precio = ?, "
+                    + "stock_minimo = ? WHERE id_producto = ?";
             PreparedStatement consulta = conexion.prepareStatement(sql);
-            consulta.setString(1, txtCodigo.getText());
-            consulta.setString(2, txtNombre.getText());
+            consulta.setString(1, txtCodigo.getText().trim());
+            consulta.setString(2, txtNombre.getText().trim());
             consulta.setString(3, cmbCategoria.getSelectedItem().toString());
-            consulta.setDouble(4, Double.parseDouble(txtPrecio.getText()));
-            consulta.setInt(5, Integer.parseInt(txtExistencia.getText()));
+            consulta.setString(4, cmbProveedor.getSelectedItem().toString());
+            consulta.setDouble(5, Double.parseDouble(txtPrecio.getText()));
             consulta.setInt(6, Integer.parseInt(txtMinimo.getText()));
             consulta.setInt(7, Integer.parseInt(txtId.getText()));
             consulta.executeUpdate();
@@ -497,7 +578,7 @@ public class FrmProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String texto = txtBuscar.getText().toLowerCase();
+        String texto = txtBuscar.getText().trim().toLowerCase();
         if (texto.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escribe un codigo o nombre");
             return;
@@ -538,6 +619,7 @@ public class FrmProductos extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnTodos;
     private javax.swing.JComboBox<String> cmbCategoria;
+    private javax.swing.JComboBox<String> cmbProveedor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCategoria;
@@ -547,6 +629,7 @@ public class FrmProductos extends javax.swing.JFrame {
     private javax.swing.JLabel lblMinimo;
     private javax.swing.JLabel lblNombre;
     private javax.swing.JLabel lblPrecio;
+    private javax.swing.JLabel lblProveedor;
     private javax.swing.JLabel lblRol;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTable tablaProductos;

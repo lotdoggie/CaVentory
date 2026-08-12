@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package caventory;
 
 import java.sql.Connection;
@@ -11,20 +7,16 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author pablo
- */
-public class FrmColaboradores extends javax.swing.JFrame {
+public class FrmProveedores extends javax.swing.JFrame {
 
-    public FrmColaboradores() {
+    public FrmProveedores() {
         initComponents();
         setLocationRelativeTo(null);
         cargarDatos();
     }
 
     private void cargarDatos() {
-        DefaultTableModel modelo = (DefaultTableModel) tablaColaboradores.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) tablaProveedores.getModel();
         modelo.setRowCount(0);
 
         Connection conexion = Conexion.conectar();
@@ -32,18 +24,31 @@ public class FrmColaboradores extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "SELECT id_user, nombre, usuario, contrasena, rol, activo "
-                    + "FROM usuarios ORDER BY id_user";
+            String sql = "SELECT * FROM proveedores ORDER BY id_proveedor";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             ResultSet resultado = consulta.executeQuery();
 
             while (resultado.next()) {
+                String telefono = resultado.getString("telefono");
+                String correo = resultado.getString("correo");
+                String direccion = resultado.getString("direccion");
+
+                if (telefono == null) {
+                    telefono = "";
+                }
+                if (correo == null) {
+                    correo = "";
+                }
+                if (direccion == null) {
+                    direccion = "";
+                }
+
                 modelo.addRow(new Object[]{
-                    resultado.getInt("id_user"),
+                    resultado.getInt("id_proveedor"),
                     resultado.getString("nombre"),
-                    resultado.getString("usuario"),
-                    resultado.getString("contrasena"),
-                    resultado.getString("rol"),
+                    telefono,
+                    correo,
+                    direccion,
                     resultado.getBoolean("activo")
                 });
             }
@@ -52,16 +57,26 @@ public class FrmColaboradores extends javax.swing.JFrame {
             consulta.close();
             conexion.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudieron cargar los colaboradores");
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar los proveedores");
             System.err.println(e.toString());
         }
     }
 
     private boolean validarCampos() {
-        String contrasena = txtContrasena.getText();
-        if (txtNombre.getText().trim().isEmpty() || txtUsuario.getText().trim().isEmpty()
-                || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Completa los datos del colaborador");
+        String nombre = txtNombre.getText().trim();
+        String correo = txtCorreo.getText().trim();
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escribe el nombre del proveedor");
+            return false;
+        }
+        if (correo.isEmpty() == false && correo.contains("@") == false) {
+            JOptionPane.showMessageDialog(this, "Escribe un correo valido");
+            return false;
+        }
+        if (txtDireccion.getText().trim().length() > 200) {
+            JOptionPane.showMessageDialog(this,
+                    "La direccion no puede tener mas de 200 caracteres");
             return false;
         }
         return true;
@@ -70,25 +85,25 @@ public class FrmColaboradores extends javax.swing.JFrame {
     private void limpiarCampos() {
         txtId.setText("");
         txtNombre.setText("");
-        txtUsuario.setText("");
-        txtContrasena.setText("");
-        cmbRol.setSelectedIndex(0);
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
         chkActivo.setSelected(true);
-        tablaColaboradores.clearSelection();
+        tablaProveedores.clearSelection();
         txtNombre.requestFocus();
     }
 
-    private void seleccionarColaborador() {
-        int fila = tablaColaboradores.getSelectedRow();
+    private void seleccionarProveedor() {
+        int fila = tablaProveedores.getSelectedRow();
         if (fila < 0) {
             return;
         }
-        txtId.setText(tablaColaboradores.getValueAt(fila, 0).toString());
-        txtNombre.setText(tablaColaboradores.getValueAt(fila, 1).toString());
-        txtUsuario.setText(tablaColaboradores.getValueAt(fila, 2).toString());
-        txtContrasena.setText(tablaColaboradores.getValueAt(fila, 3).toString());
-        cmbRol.setSelectedItem(tablaColaboradores.getValueAt(fila, 4).toString());
-        chkActivo.setSelected((Boolean) tablaColaboradores.getValueAt(fila, 5));
+        txtId.setText(tablaProveedores.getValueAt(fila, 0).toString());
+        txtNombre.setText(tablaProveedores.getValueAt(fila, 1).toString());
+        txtTelefono.setText(tablaProveedores.getValueAt(fila, 2).toString());
+        txtCorreo.setText(tablaProveedores.getValueAt(fila, 3).toString());
+        txtDireccion.setText(tablaProveedores.getValueAt(fila, 4).toString());
+        chkActivo.setSelected((Boolean) tablaProveedores.getValueAt(fila, 5));
     }
 
     @SuppressWarnings("unchecked")
@@ -101,27 +116,28 @@ public class FrmColaboradores extends javax.swing.JFrame {
         txtId = new javax.swing.JTextField();
         lblNombre = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        lblUsuario = new javax.swing.JLabel();
-        txtUsuario = new javax.swing.JTextField();
-        lblContrasena = new javax.swing.JLabel();
-        txtContrasena = new javax.swing.JTextField();
-        lblRol = new javax.swing.JLabel();
-        cmbRol = new javax.swing.JComboBox<>();
+        lblTelefono = new javax.swing.JLabel();
+        txtTelefono = new javax.swing.JTextField();
+        lblCorreo = new javax.swing.JLabel();
+        txtCorreo = new javax.swing.JTextField();
+        lblDireccion = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtDireccion = new javax.swing.JTextArea();
         chkActivo = new javax.swing.JCheckBox();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablaColaboradores = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablaProveedores = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CaVentory - Colaboradores");
+        setTitle("CaVentory - Proveedores");
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        lblTitulo.setText("Colaboradores");
+        lblTitulo.setText("Proveedores");
 
         lblAviso.setText("Modulo del administrador");
 
@@ -129,18 +145,22 @@ public class FrmColaboradores extends javax.swing.JFrame {
 
         txtId.setEditable(false);
 
-        lblNombre.setText("Nombre completo");
+        lblNombre.setText("Nombre");
 
-        lblUsuario.setText("Usuario");
+        lblTelefono.setText("Telefono");
 
-        lblContrasena.setText("Contrasena");
+        lblCorreo.setText("Correo");
 
-        lblRol.setText("Rol");
+        lblDireccion.setText("Direccion");
 
-        cmbRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Colaborador", "Administrador" }));
+        txtDireccion.setColumns(20);
+        txtDireccion.setLineWrap(true);
+        txtDireccion.setRows(5);
+        txtDireccion.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(txtDireccion);
 
         chkActivo.setSelected(true);
-        chkActivo.setText("Usuario activo");
+        chkActivo.setText("Proveedor activo");
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -170,12 +190,12 @@ public class FrmColaboradores extends javax.swing.JFrame {
             }
         });
 
-        tablaColaboradores.setModel(new javax.swing.table.DefaultTableModel(
+        tablaProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre", "Usuario", "Contrasena", "Rol", "Activo"
+                "ID", "Nombre", "Telefono", "Correo", "Direccion", "Activo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -186,12 +206,12 @@ public class FrmColaboradores extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tablaColaboradores.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaProveedores.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaColaboradoresMouseClicked(evt);
+                tablaProveedoresMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaColaboradores);
+        jScrollPane2.setViewportView(tablaProveedores);
 
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -217,24 +237,24 @@ public class FrmColaboradores extends javax.swing.JFrame {
                             .addComponent(txtId)
                             .addComponent(lblNombre)
                             .addComponent(txtNombre)
-                            .addComponent(lblUsuario)
-                            .addComponent(txtUsuario)
-                            .addComponent(lblContrasena)
-                            .addComponent(txtContrasena)
-                            .addComponent(lblRol)
-                            .addComponent(cmbRol, 0, 280, Short.MAX_VALUE)
+                            .addComponent(lblTelefono)
+                            .addComponent(txtTelefono)
+                            .addComponent(lblCorreo)
+                            .addComponent(txtCorreo)
+                            .addComponent(lblDireccion)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                             .addComponent(chkActivo)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
         );
@@ -245,29 +265,29 @@ public class FrmColaboradores extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTitulo)
                     .addComponent(lblAviso))
-                .addGap(20, 20, 20)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addGap(10, 10, 10)
                         .addComponent(lblNombre)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblUsuario)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblTelefono)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblContrasena)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblCorreo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
-                        .addComponent(lblRol)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblDireccion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbRol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(chkActivo)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -278,7 +298,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnLimpiar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(btnCerrar)))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -297,13 +317,13 @@ public class FrmColaboradores extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "INSERT INTO usuarios(nombre, usuario, contrasena, rol, activo) "
+            String sql = "INSERT INTO proveedores(nombre, telefono, correo, direccion, activo) "
                     + "VALUES (?, ?, ?, ?, ?)";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             consulta.setString(1, txtNombre.getText().trim());
-            consulta.setString(2, txtUsuario.getText().trim());
-            consulta.setString(3, txtContrasena.getText());
-            consulta.setString(4, cmbRol.getSelectedItem().toString());
+            consulta.setString(2, txtTelefono.getText().trim());
+            consulta.setString(3, txtCorreo.getText().trim());
+            consulta.setString(4, txtDireccion.getText().trim());
             consulta.setBoolean(5, chkActivo.isSelected());
             consulta.executeUpdate();
 
@@ -311,29 +331,19 @@ public class FrmColaboradores extends javax.swing.JFrame {
             conexion.close();
             cargarDatos();
             limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Colaborador guardado");
+            JOptionPane.showMessageDialog(this, "Proveedor guardado");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar el colaborador");
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el proveedor");
             System.err.println(e.toString());
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        int fila = tablaColaboradores.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona un colaborador");
+        if (tablaProveedores.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona un proveedor");
             return;
         }
         if (validarCampos() == false) {
-            return;
-        }
-
-        int idUsuario = Integer.parseInt(txtId.getText());
-        if (idUsuario == CaVentory.idUsuarioActual
-                && (chkActivo.isSelected() == false
-                || cmbRol.getSelectedItem().toString().equals("Administrador") == false)) {
-            JOptionPane.showMessageDialog(this,
-                    "No puedes desactivar ni cambiar el rol de tu propio usuario");
             return;
         }
 
@@ -342,40 +352,35 @@ public class FrmColaboradores extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "UPDATE usuarios SET nombre = ?, usuario = ?, contrasena = ?, "
-                    + "rol = ?, activo = ? WHERE id_user = ?";
+            String sql = "UPDATE proveedores SET nombre = ?, telefono = ?, correo = ?, "
+                    + "direccion = ?, activo = ? WHERE id_proveedor = ?";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             consulta.setString(1, txtNombre.getText().trim());
-            consulta.setString(2, txtUsuario.getText().trim());
-            consulta.setString(3, txtContrasena.getText());
-            consulta.setString(4, cmbRol.getSelectedItem().toString());
+            consulta.setString(2, txtTelefono.getText().trim());
+            consulta.setString(3, txtCorreo.getText().trim());
+            consulta.setString(4, txtDireccion.getText().trim());
             consulta.setBoolean(5, chkActivo.isSelected());
-            consulta.setInt(6, idUsuario);
+            consulta.setInt(6, Integer.parseInt(txtId.getText()));
             consulta.executeUpdate();
 
             consulta.close();
             conexion.close();
             cargarDatos();
             limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Colaborador editado");
+            JOptionPane.showMessageDialog(this, "Proveedor editado");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudo editar el colaborador");
+            JOptionPane.showMessageDialog(this, "No se pudo editar el proveedor");
             System.err.println(e.toString());
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        int fila = tablaColaboradores.getSelectedRow();
-        if (fila < 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona un colaborador");
-            return;
-        }
-        if (Integer.parseInt(txtId.getText()) == CaVentory.idUsuarioActual) {
-            JOptionPane.showMessageDialog(this, "No puedes eliminar tu propio usuario");
+        if (tablaProveedores.getSelectedRow() < 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona un proveedor");
             return;
         }
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas eliminar el colaborador seleccionado?", "Eliminar",
+                "Deseas eliminar el proveedor seleccionado?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             Connection conexion = Conexion.conectar();
@@ -383,7 +388,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
                 return;
             }
             try {
-                String sql = "DELETE FROM usuarios WHERE id_user = ?";
+                String sql = "DELETE FROM proveedores WHERE id_proveedor = ?";
                 PreparedStatement consulta = conexion.prepareStatement(sql);
                 consulta.setInt(1, Integer.parseInt(txtId.getText()));
                 consulta.executeUpdate();
@@ -392,9 +397,10 @@ public class FrmColaboradores extends javax.swing.JFrame {
                 conexion.close();
                 cargarDatos();
                 limpiarCampos();
-                JOptionPane.showMessageDialog(this, "Colaborador eliminado");
+                JOptionPane.showMessageDialog(this, "Proveedor eliminado");
             } catch (SQLException e) {
-                JOptionPane.showMessageDialog(this, "No se pudo eliminar el colaborador");
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar un proveedor que tenga productos");
                 System.err.println(e.toString());
             }
         }
@@ -404,9 +410,9 @@ public class FrmColaboradores extends javax.swing.JFrame {
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
-    private void tablaColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColaboradoresMouseClicked
-        seleccionarColaborador();
-    }//GEN-LAST:event_tablaColaboradoresMouseClicked
+    private void tablaProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProveedoresMouseClicked
+        seleccionarProveedor();
+    }//GEN-LAST:event_tablaProveedoresMouseClicked
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         dispose();
@@ -419,19 +425,20 @@ public class FrmColaboradores extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JCheckBox chkActivo;
-    private javax.swing.JComboBox<String> cmbRol;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAviso;
-    private javax.swing.JLabel lblContrasena;
+    private javax.swing.JLabel lblCorreo;
+    private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblRol;
+    private javax.swing.JLabel lblTelefono;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblUsuario;
-    private javax.swing.JTable tablaColaboradores;
-    private javax.swing.JTextField txtContrasena;
+    private javax.swing.JTable tablaProveedores;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextArea txtDireccion;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
