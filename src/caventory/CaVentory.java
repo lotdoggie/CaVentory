@@ -10,11 +10,15 @@ package caventory;
  */
 public class CaVentory {
 
+    public static String usuarioActual = "";
+    public static String rolActual = "";
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        FrmInicioSesion inicio = new FrmInicioSesion();
+        inicio.setVisible(true);
     }
     
 }

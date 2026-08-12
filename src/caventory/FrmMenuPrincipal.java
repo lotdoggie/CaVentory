@@ -1,0 +1,222 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+package caventory;
+
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author pablo
+ */
+public class FrmMenuPrincipal extends javax.swing.JFrame {
+
+    public FrmMenuPrincipal() {
+        initComponents();
+        setLocationRelativeTo(null);
+        lblUsuarioActual.setText("Usuario: " + CaVentory.usuarioActual);
+        lblRolActual.setText("Rol: " + CaVentory.rolActual);
+
+        if (CaVentory.rolActual.equals("Administrador")) {
+            btnCategorias.setEnabled(true);
+            btnColaboradores.setEnabled(true);
+            lblPermisos.setText("Puedes administrar productos, categorias, movimientos y colaboradores.");
+        } else {
+            btnCategorias.setEnabled(false);
+            btnColaboradores.setEnabled(false);
+            lblPermisos.setText("Puedes consultar productos y registrar entradas o salidas.");
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        lblTitulo = new javax.swing.JLabel();
+        lblVersion = new javax.swing.JLabel();
+        lblUsuarioActual = new javax.swing.JLabel();
+        lblRolActual = new javax.swing.JLabel();
+        lblInstruccion = new javax.swing.JLabel();
+        btnProductos = new javax.swing.JButton();
+        btnMovimientos = new javax.swing.JButton();
+        btnCategorias = new javax.swing.JButton();
+        btnColaboradores = new javax.swing.JButton();
+        lblPermisos = new javax.swing.JLabel();
+        btnCerrarSesion = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CaVentory - Menu principal");
+        setResizable(false);
+
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblTitulo.setText("Menu principal");
+
+        lblVersion.setText("CaVentory 26.1");
+
+        lblUsuarioActual.setText("Usuario:");
+
+        lblRolActual.setText("Rol:");
+
+        lblInstruccion.setText("Selecciona el modulo que deseas utilizar");
+
+        btnProductos.setText("Productos");
+        btnProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProductosActionPerformed(evt);
+            }
+        });
+
+        btnMovimientos.setText("Entradas y salidas");
+        btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMovimientosActionPerformed(evt);
+            }
+        });
+
+        btnCategorias.setText("Categorias");
+        btnCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriasActionPerformed(evt);
+            }
+        });
+
+        btnColaboradores.setText("Colaboradores");
+        btnColaboradores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColaboradoresActionPerformed(evt);
+            }
+        });
+
+        lblPermisos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPermisos.setText("Permisos del usuario");
+
+        btnCerrarSesion.setText("Cerrar sesion");
+        btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCerrarSesionActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setText("Salir");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblVersion))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblUsuarioActual, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblRolActual, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblInstruccion)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(btnColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(30, 30, 30))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitulo)
+                    .addComponent(lblVersion))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuarioActual)
+                    .addComponent(lblRolActual))
+                .addGap(22, 22, 22)
+                .addComponent(lblInstruccion)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(btnColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(lblPermisos)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCerrarSesion)
+                    .addComponent(btnSalir))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
+        FrmProductos productos = new FrmProductos();
+        productos.setVisible(true);
+    }//GEN-LAST:event_btnProductosActionPerformed
+
+    private void btnMovimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovimientosActionPerformed
+        FrmMovimientos movimientos = new FrmMovimientos();
+        movimientos.setVisible(true);
+    }//GEN-LAST:event_btnMovimientosActionPerformed
+
+    private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
+        FrmCategorias categorias = new FrmCategorias();
+        categorias.setVisible(true);
+    }//GEN-LAST:event_btnCategoriasActionPerformed
+
+    private void btnColaboradoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColaboradoresActionPerformed
+        FrmColaboradores colaboradores = new FrmColaboradores();
+        colaboradores.setVisible(true);
+    }//GEN-LAST:event_btnColaboradoresActionPerformed
+
+    private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
+        FrmInicioSesion inicio = new FrmInicioSesion();
+        inicio.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCerrarSesionActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(this,
+                "Deseas salir de CaVentory?", "Salir",
+                JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCategorias;
+    private javax.swing.JButton btnCerrarSesion;
+    private javax.swing.JButton btnColaboradores;
+    private javax.swing.JButton btnMovimientos;
+    private javax.swing.JButton btnProductos;
+    private javax.swing.JButton btnSalir;
+    private javax.swing.JLabel lblInstruccion;
+    private javax.swing.JLabel lblPermisos;
+    private javax.swing.JLabel lblRolActual;
+    private javax.swing.JLabel lblTitulo;
+    private javax.swing.JLabel lblUsuarioActual;
+    private javax.swing.JLabel lblVersion;
+    // End of variables declaration//GEN-END:variables
+}
