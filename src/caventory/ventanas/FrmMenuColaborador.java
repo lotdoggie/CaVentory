@@ -59,7 +59,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         lblPermisos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPermisos.setText("Puedes consultar existencias y registrar movimientos.");
 
-        btnCerrarSesion.setText("Cerrar sesion");
+        btnCerrarSesion.setText("Cerrar sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
@@ -140,9 +140,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMovimientosActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        CaVentory.idUsuarioActual = 0;
-        CaVentory.usuarioActual = "";
-        CaVentory.rolActual = "";
+        CaVentory.limpiarSesion();
         FrmInicioSesion inicio = new FrmInicioSesion();
         inicio.setVisible(true);
         dispose();
@@ -150,7 +148,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas salir de CaVentory?", "Salir",
+                "¿Deseas salir de CaVentory?", "Salir",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             System.exit(0);

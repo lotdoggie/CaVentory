@@ -115,7 +115,7 @@
     <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuarioActual"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblRolActual"><Properties><Property name="text" type="java.lang.String" value="Rol:"/></Properties></Component>
-    <Component class="javax.swing.JLabel" name="lblInstruccion"><Properties><Property name="text" type="java.lang.String" value="Selecciona el modulo que deseas utilizar"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblInstruccion"><Properties><Property name="text" type="java.lang.String" value="Selecciona el módulo que deseas utilizar"/></Properties></Component>
     <Component class="javax.swing.JButton" name="btnProductos">
       <Properties><Property name="text" type="java.lang.String" value="Productos"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosActionPerformed"/></Events>
@@ -125,7 +125,7 @@
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMovimientosActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCategorias">
-      <Properties><Property name="text" type="java.lang.String" value="Categorias"/></Properties>
+      <Properties><Property name="text" type="java.lang.String" value="Categorías"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCategoriasActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnColaboradores">
@@ -144,7 +144,7 @@
       <Properties><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Permisos del usuario"/></Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion">
-      <Properties><Property name="text" type="java.lang.String" value="Cerrar sesion"/></Properties>
+      <Properties><Property name="text" type="java.lang.String" value="Cerrar sesión"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCerrarSesionActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnSalir">

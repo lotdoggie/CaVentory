@@ -52,10 +52,11 @@ public class FrmCategorias extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudieron cargar las categorias");
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar las categorías");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -70,12 +71,12 @@ public class FrmCategorias extends javax.swing.JFrame {
     private boolean validarCampos() {
         if (txtNombre.getText().trim().isEmpty()
                 || txtDescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escribe el nombre y la descripcion");
+            JOptionPane.showMessageDialog(this, "Escribe el nombre y la descripción");
             return false;
         }
         if (txtDescripcion.getText().trim().length() > 200) {
             JOptionPane.showMessageDialog(this,
-                    "La descripcion no puede tener mas de 200 caracteres");
+                    "La descripción no puede tener más de 200 caracteres");
             return false;
         }
         return true;
@@ -113,13 +114,13 @@ public class FrmCategorias extends javax.swing.JFrame {
         btnCerrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CaVentory - Categorias");
+        setTitle("CaVentory - Categorías");
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        lblTitulo.setText("Categorias");
+        lblTitulo.setText("Categorías");
 
-        lblAviso.setText("Modulo del administrador");
+        lblAviso.setText("Módulo del administrador");
 
         lblId.setText("ID");
 
@@ -127,7 +128,7 @@ public class FrmCategorias extends javax.swing.JFrame {
 
         lblNombre.setText("Nombre");
 
-        lblDescripcion.setText("Descripcion");
+        lblDescripcion.setText("Descripción");
 
         txtDescripcion.setColumns(20);
         txtDescripcion.setLineWrap(true);
@@ -168,7 +169,7 @@ public class FrmCategorias extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Descripcion"
+                "ID", "Nombre", "Descripción"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -282,20 +283,21 @@ public class FrmCategorias extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Categoria guardada");
+            JOptionPane.showMessageDialog(this, "Categoría guardada");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar la categoria");
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la categoría");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int fila = tablaCategorias.getSelectedRow();
         if (fila < 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona una categoria");
+            JOptionPane.showMessageDialog(this, "Selecciona una categoría");
             return;
         }
         if (validarCampos() == false) {
@@ -316,24 +318,25 @@ public class FrmCategorias extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
-            JOptionPane.showMessageDialog(this, "Categoria editada");
+            JOptionPane.showMessageDialog(this, "Categoría editada");
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudo editar la categoria");
+            JOptionPane.showMessageDialog(this, "No se pudo editar la categoría");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tablaCategorias.getSelectedRow();
         if (fila < 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona una categoria");
+            JOptionPane.showMessageDialog(this, "Selecciona una categoría");
             return;
         }
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas eliminar la categoria seleccionada?", "Eliminar",
+                "¿Deseas eliminar la categoría seleccionada?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             Connection conexion = Conexion.conectar();
@@ -347,14 +350,15 @@ public class FrmCategorias extends javax.swing.JFrame {
                 consulta.executeUpdate();
 
                 consulta.close();
-                conexion.close();
+                Conexion.cerrar(conexion);
                 cargarDatos();
                 limpiarCampos();
-                JOptionPane.showMessageDialog(this, "Categoria eliminada");
+                JOptionPane.showMessageDialog(this, "Categoría eliminada");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this,
-                        "No se puede eliminar una categoria que tenga productos");
+                        "No se puede eliminar una categoría que tenga productos");
                 System.err.println(e.toString());
+                Conexion.cerrar(conexion);
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed

@@ -86,7 +86,7 @@ public class FrmResumenInventario extends javax.swing.JFrame {
             resultadoColaboradores.close();
             consultaColaboradores.close();
 
-            lblCatalogos.setText("Categorias: " + categorias
+            lblCatalogos.setText("Categorías: " + categorias
                     + " | Proveedores activos: " + proveedores
                     + " | Colaboradores activos: " + colaboradores);
 
@@ -112,10 +112,11 @@ public class FrmResumenInventario extends javax.swing.JFrame {
 
             bajos.close();
             consultaBajos.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo cargar el resumen");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -143,7 +144,7 @@ public class FrmResumenInventario extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblTitulo.setText("Resumen de inventario");
 
-        lblAviso.setText("Informacion general del sistema");
+        lblAviso.setText("Información general del sistema");
 
         lblProductos.setText("Productos registrados: 0");
 
@@ -153,16 +154,16 @@ public class FrmResumenInventario extends javax.swing.JFrame {
 
         lblBajos.setText("Productos con existencia baja: 0");
 
-        lblCatalogos.setText("Categorias: 0 | Proveedores activos: 0 | Colaboradores activos: 0");
+        lblCatalogos.setText("Categorías: 0 | Proveedores activos: 0 | Colaboradores activos: 0");
 
-        lblDetalle.setText("Productos que necesitan revision o reabastecimiento");
+        lblDetalle.setText("Productos que necesitan revisión o reabastecimiento");
 
         tablaExistenciaBaja.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Producto", "Categoria", "Proveedor", "Existencia", "Minimo"
+                "Código", "Producto", "Categoría", "Proveedor", "Existencia", "Mínimo"
             }
         ) {
             boolean[] canEdit = new boolean [] {

@@ -47,10 +47,11 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudieron cargar los productos");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -85,10 +86,11 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudieron cargar los movimientos");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -141,7 +143,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
         lblCantidad.setText("Cantidad");
 
-        lblObservacion.setText("Observacion");
+        lblObservacion.setText("Observación");
 
         txtObservacion.setColumns(20);
         txtObservacion.setLineWrap(true);
@@ -170,7 +172,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Producto", "Tipo", "Cantidad", "Fecha", "Usuario", "Observacion"
+                "ID", "Producto", "Tipo", "Cantidad", "Fecha", "Usuario", "Observación"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -278,7 +280,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
                 return;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La cantidad debe ser un numero entero");
+            JOptionPane.showMessageDialog(this, "La cantidad debe ser un número entero");
             return;
         }
 
@@ -289,7 +291,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
         if (observacion.length() > 200) {
             JOptionPane.showMessageDialog(this,
-                    "La observacion no puede tener mas de 200 caracteres");
+                    "La observación no puede tener más de 200 caracteres");
             return;
         }
 
@@ -307,7 +309,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
             if (resultado.next() == false) {
                 resultado.close();
                 buscarProducto.close();
-                conexion.close();
+                Conexion.cerrar(conexion);
                 JOptionPane.showMessageDialog(this, "El producto ya no existe");
                 cargarProductos();
                 return;
@@ -324,7 +326,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "No hay suficiente existencia");
                     resultado.close();
                     buscarProducto.close();
-                    conexion.close();
+                    Conexion.cerrar(conexion);
                     return;
                 }
                 nuevaExistencia = existencia - cantidad;
@@ -351,13 +353,14 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
             guardarMovimiento.close();
             actualizarExistencia.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Movimiento registrado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo registrar el movimiento");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 

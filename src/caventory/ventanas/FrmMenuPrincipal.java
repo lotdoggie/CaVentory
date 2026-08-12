@@ -18,7 +18,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblUsuarioActual.setText("Usuario: " + CaVentory.usuarioActual);
         lblRolActual.setText("Rol: " + CaVentory.rolActual);
-        lblPermisos.setText("Puedes administrar productos, categorias, movimientos y colaboradores.");
+        lblPermisos.setText("Puedes administrar productos, categorías, movimientos y colaboradores.");
     }
 
     @SuppressWarnings("unchecked")
@@ -53,7 +53,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
         lblRolActual.setText("Rol:");
 
-        lblInstruccion.setText("Selecciona el modulo que deseas utilizar");
+        lblInstruccion.setText("Selecciona el módulo que deseas utilizar");
 
         btnProductos.setText("Productos");
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +69,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnCategorias.setText("Categorias");
+        btnCategorias.setText("Categorías");
         btnCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCategoriasActionPerformed(evt);
@@ -100,7 +100,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         lblPermisos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPermisos.setText("Permisos del usuario");
 
-        btnCerrarSesion.setText("Cerrar sesion");
+        btnCerrarSesion.setText("Cerrar sesión");
         btnCerrarSesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarSesionActionPerformed(evt);
@@ -215,9 +215,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResumenActionPerformed
 
     private void btnCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarSesionActionPerformed
-        CaVentory.idUsuarioActual = 0;
-        CaVentory.usuarioActual = "";
-        CaVentory.rolActual = "";
+        CaVentory.limpiarSesion();
         FrmInicioSesion inicio = new FrmInicioSesion();
         inicio.setVisible(true);
         dispose();
@@ -225,7 +223,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas salir de CaVentory?", "Salir",
+                "¿Deseas salir de CaVentory?", "Salir",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             System.exit(0);

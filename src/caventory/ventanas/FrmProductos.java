@@ -37,7 +37,7 @@ public class FrmProductos extends javax.swing.JFrame {
             return;
         }
         try {
-            String sql = "SELECT nombre FROM proveedores ORDER BY nombre";
+            String sql = "SELECT nombre FROM proveedores WHERE activo = true ORDER BY nombre";
             PreparedStatement consulta = conexion.prepareStatement(sql);
             ResultSet resultado = consulta.executeQuery();
 
@@ -47,10 +47,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudieron cargar los proveedores");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -73,10 +74,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudieron cargar las categorias");
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar las categorías");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -121,10 +123,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudieron cargar los productos");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -145,11 +148,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
             if (precio < 0 || existencia < 0 || minimo < 0) {
                 JOptionPane.showMessageDialog(this,
-                        "Precio, existencia y minimo no pueden ser negativos");
+                        "Precio, existencia y mínimo no pueden ser negativos");
                 return false;
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Precio, existencia y minimo deben ser numeros");
+            JOptionPane.showMessageDialog(this, "Precio, existencia y mínimo deben ser números");
             return false;
         }
         return true;
@@ -233,11 +236,11 @@ public class FrmProductos extends javax.swing.JFrame {
 
         txtId.setEditable(false);
 
-        lblCodigo.setText("Codigo");
+        lblCodigo.setText("Código");
 
         lblNombre.setText("Nombre");
 
-        lblCategoria.setText("Categoria");
+        lblCategoria.setText("Categoría");
 
         cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
@@ -249,7 +252,7 @@ public class FrmProductos extends javax.swing.JFrame {
 
         lblExistencia.setText("Existencia");
 
-        lblMinimo.setText("Stock minimo");
+        lblMinimo.setText("Stock mínimo");
 
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -279,7 +282,7 @@ public class FrmProductos extends javax.swing.JFrame {
             }
         });
 
-        lblBuscar.setText("Buscar por codigo o nombre");
+        lblBuscar.setText("Buscar por código o nombre");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -300,7 +303,7 @@ public class FrmProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Codigo", "Nombre", "Categoria", "Proveedor", "Precio", "Existencia", "Minimo"
+                "ID", "Código", "Nombre", "Categoría", "Proveedor", "Precio", "Existencia", "Mínimo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -490,13 +493,14 @@ public class FrmProductos extends javax.swing.JFrame {
                 movimiento.close();
             }
 
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Producto guardado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el producto");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -531,13 +535,14 @@ public class FrmProductos extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Producto editado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo editar el producto");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -549,7 +554,7 @@ public class FrmProductos extends javax.swing.JFrame {
         }
 
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas eliminar el producto seleccionado?", "Eliminar",
+                "¿Deseas eliminar el producto seleccionado?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             Connection conexion = Conexion.conectar();
@@ -563,7 +568,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 consulta.executeUpdate();
 
                 consulta.close();
-                conexion.close();
+                Conexion.cerrar(conexion);
                 cargarDatos();
                 limpiarCampos();
                 JOptionPane.showMessageDialog(this, "Producto eliminado");
@@ -571,6 +576,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,
                         "No se puede eliminar un producto que tenga movimientos");
                 System.err.println(e.toString());
+                Conexion.cerrar(conexion);
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -582,7 +588,7 @@ public class FrmProductos extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String texto = txtBuscar.getText().trim().toLowerCase();
         if (texto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escribe un codigo o nombre");
+            JOptionPane.showMessageDialog(this, "Escribe un código o nombre");
             return;
         }
 
@@ -595,7 +601,7 @@ public class FrmProductos extends javax.swing.JFrame {
                 return;
             }
         }
-        JOptionPane.showMessageDialog(this, "No se encontro el producto");
+        JOptionPane.showMessageDialog(this, "No se encontró el producto");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed

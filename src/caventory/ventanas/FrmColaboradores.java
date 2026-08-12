@@ -52,10 +52,11 @@ public class FrmColaboradores extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudieron cargar los colaboradores");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -125,7 +126,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblTitulo.setText("Colaboradores");
 
-        lblAviso.setText("Modulo del administrador");
+        lblAviso.setText("Módulo del administrador");
 
         lblId.setText("ID");
 
@@ -135,7 +136,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
 
         lblUsuario.setText("Usuario");
 
-        lblContrasena.setText("Contrasena");
+        lblContrasena.setText("Contraseña");
 
         lblRol.setText("Rol");
 
@@ -177,7 +178,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Usuario", "Contrasena", "Rol", "Activo"
+                "ID", "Nombre", "Usuario", "Contraseña", "Rol", "Activo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -310,13 +311,14 @@ public class FrmColaboradores extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Colaborador guardado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el colaborador");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -356,13 +358,14 @@ public class FrmColaboradores extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Colaborador editado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo editar el colaborador");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -377,7 +380,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
             return;
         }
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas eliminar el colaborador seleccionado?", "Eliminar",
+                "¿Deseas eliminar el colaborador seleccionado?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             Connection conexion = Conexion.conectar();
@@ -391,13 +394,14 @@ public class FrmColaboradores extends javax.swing.JFrame {
                 consulta.executeUpdate();
 
                 consulta.close();
-                conexion.close();
+                Conexion.cerrar(conexion);
                 cargarDatos();
                 limpiarCampos();
                 JOptionPane.showMessageDialog(this, "Colaborador eliminado");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(this, "No se pudo eliminar el colaborador");
                 System.err.println(e.toString());
+                Conexion.cerrar(conexion);
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed

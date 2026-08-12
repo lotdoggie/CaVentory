@@ -38,7 +38,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         lblVersion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CaVentory - Inicio de sesion");
+        setTitle("CaVentory - Inicio de sesión");
         setResizable(false);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
@@ -50,7 +50,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
 
         lblUsuario.setText("Usuario");
 
-        lblContrasena.setText("Contrasena");
+        lblContrasena.setText("Contraseña");
 
         btnIngresar.setText("Ingresar");
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +67,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         });
 
         lblVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersion.setText("Version 26.1");
+        lblVersion.setText("Versión 26.1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,13 +121,13 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         String contrasena = txtContrasena.getText();
 
         if (usuario.isEmpty() || contrasena.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escribe el usuario y la contrasena");
+            JOptionPane.showMessageDialog(this, "Escribe el usuario y la contraseña");
             return;
         }
 
         Connection conexion = Conexion.conectar();
         if (conexion == null) {
-            JOptionPane.showMessageDialog(this, "No hay conexion con la base de datos");
+            JOptionPane.showMessageDialog(this, "No hay conexión con la base de datos");
             return;
         }
 
@@ -153,17 +153,18 @@ public class FrmInicioSesion extends javax.swing.JFrame {
                 }
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Usuario o contrasena incorrectos");
+                JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos");
                 txtContrasena.setText("");
                 txtContrasena.requestFocus();
             }
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "No se pudo iniciar sesion");
+            JOptionPane.showMessageDialog(this, "No se pudo iniciar sesión");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 

@@ -14,12 +14,21 @@ public class Conexion {
 
         try {
             conexion = DriverManager.getConnection(url, usuario, password);
-            System.out.println("Conexion correcta con CaVentoryDB");
         } catch (SQLException e) {
             System.err.println("No se pudo conectar con CaVentoryDB");
             System.err.println(e.toString());
         }
 
         return conexion;
+    }
+
+    public static void cerrar(Connection conexion) {
+        if (conexion != null) {
+            try {
+                conexion.close();
+            } catch (SQLException e) {
+                System.err.println("No se pudo cerrar la conexión");
+            }
+        }
     }
 }

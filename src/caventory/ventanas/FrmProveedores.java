@@ -56,10 +56,11 @@ public class FrmProveedores extends javax.swing.JFrame {
 
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudieron cargar los proveedores");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -72,12 +73,12 @@ public class FrmProveedores extends javax.swing.JFrame {
             return false;
         }
         if (correo.isEmpty() == false && correo.contains("@") == false) {
-            JOptionPane.showMessageDialog(this, "Escribe un correo valido");
+            JOptionPane.showMessageDialog(this, "Escribe un correo válido");
             return false;
         }
         if (txtDireccion.getText().trim().length() > 200) {
             JOptionPane.showMessageDialog(this,
-                    "La direccion no puede tener mas de 200 caracteres");
+                    "La dirección no puede tener más de 200 caracteres");
             return false;
         }
         return true;
@@ -140,7 +141,7 @@ public class FrmProveedores extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         lblTitulo.setText("Proveedores");
 
-        lblAviso.setText("Modulo del administrador");
+        lblAviso.setText("Módulo del administrador");
 
         lblId.setText("ID");
 
@@ -148,11 +149,11 @@ public class FrmProveedores extends javax.swing.JFrame {
 
         lblNombre.setText("Nombre");
 
-        lblTelefono.setText("Telefono");
+        lblTelefono.setText("Teléfono");
 
         lblCorreo.setText("Correo");
 
-        lblDireccion.setText("Direccion");
+        lblDireccion.setText("Dirección");
 
         txtDireccion.setColumns(20);
         txtDireccion.setLineWrap(true);
@@ -196,7 +197,7 @@ public class FrmProveedores extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Telefono", "Correo", "Direccion", "Activo"
+                "ID", "Nombre", "Teléfono", "Correo", "Dirección", "Activo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -329,13 +330,14 @@ public class FrmProveedores extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Proveedor guardado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo guardar el proveedor");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -365,13 +367,14 @@ public class FrmProveedores extends javax.swing.JFrame {
             consulta.executeUpdate();
 
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Proveedor editado");
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo editar el proveedor");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -381,7 +384,7 @@ public class FrmProveedores extends javax.swing.JFrame {
             return;
         }
         int respuesta = JOptionPane.showConfirmDialog(this,
-                "Deseas eliminar el proveedor seleccionado?", "Eliminar",
+                "¿Deseas eliminar el proveedor seleccionado?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
             Connection conexion = Conexion.conectar();
@@ -395,7 +398,7 @@ public class FrmProveedores extends javax.swing.JFrame {
                 consulta.executeUpdate();
 
                 consulta.close();
-                conexion.close();
+                Conexion.cerrar(conexion);
                 cargarDatos();
                 limpiarCampos();
                 JOptionPane.showMessageDialog(this, "Proveedor eliminado");
@@ -403,6 +406,7 @@ public class FrmProveedores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this,
                         "No se puede eliminar un proveedor que tenga productos");
                 System.err.println(e.toString());
+                Conexion.cerrar(conexion);
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed

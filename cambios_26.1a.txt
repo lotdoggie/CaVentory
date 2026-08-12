@@ -1,0 +1,8 @@
+Cambios versión 26.1a
+
+- Se corrigieron varios errores de ortografía.
+- Se hizo una función para cerrar la conexión.
+- Se corrigió el cierre de la conexión cuando ocurre un error.
+- Se hizo una función para limpiar la sesión.
+- Ya no salen proveedores inactivos al guardar productos.
+- Se quitaron mensajes repetidos de la consola.

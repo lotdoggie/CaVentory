@@ -66,10 +66,11 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
                     + " | Con existencia baja: " + productosBajos);
             resultado.close();
             consulta.close();
-            conexion.close();
+            Conexion.cerrar(conexion);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "No se pudo consultar el inventario");
             System.err.println(e.toString());
+            Conexion.cerrar(conexion);
         }
     }
 
@@ -97,7 +98,7 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
 
         lblUsuario.setText("Usuario:");
 
-        lblBuscar.setText("Buscar por codigo o nombre");
+        lblBuscar.setText("Buscar por código o nombre");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +119,7 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Codigo", "Nombre", "Categoria", "Proveedor", "Precio", "Existencia", "Minimo", "Estado"
+                "ID", "Código", "Nombre", "Categoría", "Proveedor", "Precio", "Existencia", "Mínimo", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -195,7 +196,7 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String texto = txtBuscar.getText().trim().toLowerCase();
         if (texto.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escribe un codigo o nombre");
+            JOptionPane.showMessageDialog(this, "Escribe un código o nombre");
             return;
         }
 
@@ -209,7 +210,7 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
             }
         }
 
-        JOptionPane.showMessageDialog(this, "No se encontro el producto");
+        JOptionPane.showMessageDialog(this, "No se encontró el producto");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
