@@ -4,6 +4,10 @@
  */
 package caventory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -119,20 +123,39 @@ public class FrmInicioSesion extends javax.swing.JFrame {
             return;
         }
 
-        if (usuario.equals("admin") && contrasena.equals("admin123")) {
-            CaVentory.rolActual = "Administrador";
-        } else if (usuario.equals("trabajador") && contrasena.equals("1234")) {
-            CaVentory.rolActual = "Colaborador";
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contrasena incorrectos");
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            JOptionPane.showMessageDialog(this, "No hay conexion con la base de datos");
             return;
         }
 
-        CaVentory.usuarioActual = usuario;
+        try {
+            String sql = "SELECT id_user, usuario, rol FROM usuarios "
+                    + "WHERE usuario = ? AND contrasena = ? AND activo = true";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, usuario);
+            consulta.setString(2, contrasena);
+            ResultSet resultado = consulta.executeQuery();
 
-        FrmMenuPrincipal menu = new FrmMenuPrincipal();
-        menu.setVisible(true);
-        dispose();
+            if (resultado.next()) {
+                CaVentory.idUsuarioActual = resultado.getInt("id_user");
+                CaVentory.usuarioActual = resultado.getString("usuario");
+                CaVentory.rolActual = resultado.getString("rol");
+
+                FrmMenuPrincipal menu = new FrmMenuPrincipal();
+                menu.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Usuario o contrasena incorrectos");
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo iniciar sesion");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed

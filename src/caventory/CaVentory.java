@@ -12,6 +12,7 @@ public class CaVentory {
 
     public static String usuarioActual = "";
     public static String rolActual = "";
+    public static int idUsuarioActual;
 
     /**
      * @param args the command line arguments

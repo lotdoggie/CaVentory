@@ -4,6 +4,10 @@
  */
 package caventory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,13 +17,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmProductos extends javax.swing.JFrame {
 
-    private int siguienteId = 4;
-
     public FrmProductos() {
         initComponents();
         setLocationRelativeTo(null);
         lblRol.setText("Rol: " + CaVentory.rolActual);
-        cargarEjemplos();
+        cargarCategorias();
+        cargarDatos();
 
         if (CaVentory.rolActual.equals("Colaborador")) {
             btnGuardar.setEnabled(false);
@@ -28,11 +31,67 @@ public class FrmProductos extends javax.swing.JFrame {
         }
     }
 
-    private void cargarEjemplos() {
+    private void cargarCategorias() {
+        cmbCategoria.removeAllItems();
+        cmbCategoria.addItem("Seleccione");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT nombre FROM categorias ORDER BY nombre";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                cmbCategoria.addItem(resultado.getString("nombre"));
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar las categorias");
+            System.err.println(e.toString());
+        }
+    }
+
+    private void cargarDatos() {
         DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
-        modelo.addRow(new Object[]{1, "PAP-001", "Cuaderno", "Papeleria", 35.50, 20, 5});
-        modelo.addRow(new Object[]{2, "ELE-001", "Mouse", "Electronica", 180.00, 8, 3});
-        modelo.addRow(new Object[]{3, "LIM-001", "Detergente", "Limpieza", 65.00, 12, 4});
+        modelo.setRowCount(0);
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT p.id_producto, p.codigo, p.nombre, c.nombre AS categoria, "
+                    + "p.precio, p.existencia, p.stock_minimo "
+                    + "FROM productos p INNER JOIN categorias c "
+                    + "ON p.id_categoria = c.id_categoria ORDER BY p.id_producto";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                modelo.addRow(new Object[]{
+                    resultado.getInt("id_producto"),
+                    resultado.getString("codigo"),
+                    resultado.getString("nombre"),
+                    resultado.getString("categoria"),
+                    resultado.getDouble("precio"),
+                    resultado.getInt("existencia"),
+                    resultado.getInt("stock_minimo")
+                });
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar los productos");
+            System.err.println(e.toString());
+        }
     }
 
     private boolean validarCampos() {
@@ -133,7 +192,7 @@ public class FrmProductos extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria");
 
-        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Papeleria", "Electronica", "Limpieza", "Alimentos", "Otros" }));
+        cmbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         lblPrecio.setText("Precio");
 
@@ -331,19 +390,32 @@ public class FrmProductos extends javax.swing.JFrame {
             return;
         }
 
-        DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
-        modelo.addRow(new Object[]{
-            siguienteId,
-            txtCodigo.getText(),
-            txtNombre.getText(),
-            cmbCategoria.getSelectedItem(),
-            Double.parseDouble(txtPrecio.getText()),
-            Integer.parseInt(txtExistencia.getText()),
-            Integer.parseInt(txtMinimo.getText())
-        });
-        siguienteId++;
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Producto agregado de forma temporal");
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "INSERT INTO productos(codigo, nombre, id_categoria, precio, "
+                    + "existencia, stock_minimo) VALUES (?, ?, "
+                    + "(SELECT id_categoria FROM categorias WHERE nombre = ?), ?, ?, ?)";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtCodigo.getText());
+            consulta.setString(2, txtNombre.getText());
+            consulta.setString(3, cmbCategoria.getSelectedItem().toString());
+            consulta.setDouble(4, Double.parseDouble(txtPrecio.getText()));
+            consulta.setInt(5, Integer.parseInt(txtExistencia.getText()));
+            consulta.setInt(6, Integer.parseInt(txtMinimo.getText()));
+            consulta.executeUpdate();
+
+            consulta.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Producto guardado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el producto");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -356,14 +428,34 @@ public class FrmProductos extends javax.swing.JFrame {
             return;
         }
 
-        tablaProductos.setValueAt(txtCodigo.getText(), fila, 1);
-        tablaProductos.setValueAt(txtNombre.getText(), fila, 2);
-        tablaProductos.setValueAt(cmbCategoria.getSelectedItem(), fila, 3);
-        tablaProductos.setValueAt(Double.parseDouble(txtPrecio.getText()), fila, 4);
-        tablaProductos.setValueAt(Integer.parseInt(txtExistencia.getText()), fila, 5);
-        tablaProductos.setValueAt(Integer.parseInt(txtMinimo.getText()), fila, 6);
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Producto editado de forma temporal");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "UPDATE productos SET codigo = ?, nombre = ?, id_categoria = "
+                    + "(SELECT id_categoria FROM categorias WHERE nombre = ?), precio = ?, "
+                    + "existencia = ?, stock_minimo = ? WHERE id_producto = ?";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtCodigo.getText());
+            consulta.setString(2, txtNombre.getText());
+            consulta.setString(3, cmbCategoria.getSelectedItem().toString());
+            consulta.setDouble(4, Double.parseDouble(txtPrecio.getText()));
+            consulta.setInt(5, Integer.parseInt(txtExistencia.getText()));
+            consulta.setInt(6, Integer.parseInt(txtMinimo.getText()));
+            consulta.setInt(7, Integer.parseInt(txtId.getText()));
+            consulta.executeUpdate();
+
+            consulta.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Producto editado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo editar el producto");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -377,9 +469,26 @@ public class FrmProductos extends javax.swing.JFrame {
                 "Deseas eliminar el producto seleccionado?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
-            DefaultTableModel modelo = (DefaultTableModel) tablaProductos.getModel();
-            modelo.removeRow(fila);
-            limpiarCampos();
+            Connection conexion = Conexion.conectar();
+            if (conexion == null) {
+                return;
+            }
+            try {
+                String sql = "DELETE FROM productos WHERE id_producto = ?";
+                PreparedStatement consulta = conexion.prepareStatement(sql);
+                consulta.setInt(1, Integer.parseInt(txtId.getText()));
+                consulta.executeUpdate();
+
+                consulta.close();
+                conexion.close();
+                cargarDatos();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Producto eliminado");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar un producto que tenga movimientos");
+                System.err.println(e.toString());
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -408,6 +517,7 @@ public class FrmProductos extends javax.swing.JFrame {
 
     private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
         txtBuscar.setText("");
+        cargarDatos();
         limpiarCampos();
     }//GEN-LAST:event_btnTodosActionPerformed
 

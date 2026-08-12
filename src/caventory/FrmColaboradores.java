@@ -4,6 +4,10 @@
  */
 package caventory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,18 +17,43 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmColaboradores extends javax.swing.JFrame {
 
-    private int siguienteId = 3;
-
     public FrmColaboradores() {
         initComponents();
         setLocationRelativeTo(null);
-        cargarEjemplos();
+        cargarDatos();
     }
 
-    private void cargarEjemplos() {
+    private void cargarDatos() {
         DefaultTableModel modelo = (DefaultTableModel) tablaColaboradores.getModel();
-        modelo.addRow(new Object[]{1, "Administrador", "admin", "admin123", "Administrador", true});
-        modelo.addRow(new Object[]{2, "Trabajador", "trabajador", "1234", "Colaborador", true});
+        modelo.setRowCount(0);
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT * FROM usuarios ORDER BY id_user";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                modelo.addRow(new Object[]{
+                    resultado.getInt("id_user"),
+                    resultado.getString("nombre"),
+                    resultado.getString("usuario"),
+                    resultado.getString("contrasena"),
+                    resultado.getString("rol"),
+                    resultado.getBoolean("activo")
+                });
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar los colaboradores");
+            System.err.println(e.toString());
+        }
     }
 
     private boolean validarCampos() {
@@ -261,13 +290,31 @@ public class FrmColaboradores extends javax.swing.JFrame {
         if (validarCampos() == false) {
             return;
         }
-        DefaultTableModel modelo = (DefaultTableModel) tablaColaboradores.getModel();
-        modelo.addRow(new Object[]{siguienteId, txtNombre.getText(), txtUsuario.getText(),
-            txtContrasena.getText(), cmbRol.getSelectedItem(),
-            chkActivo.isSelected()});
-        siguienteId++;
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Colaborador agregado de forma temporal");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "INSERT INTO usuarios(nombre, usuario, contrasena, rol, activo) "
+                    + "VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtNombre.getText());
+            consulta.setString(2, txtUsuario.getText());
+            consulta.setString(3, txtContrasena.getText());
+            consulta.setString(4, cmbRol.getSelectedItem().toString());
+            consulta.setBoolean(5, chkActivo.isSelected());
+            consulta.executeUpdate();
+
+            consulta.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Colaborador guardado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar el colaborador");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -279,13 +326,32 @@ public class FrmColaboradores extends javax.swing.JFrame {
         if (validarCampos() == false) {
             return;
         }
-        tablaColaboradores.setValueAt(txtNombre.getText(), fila, 1);
-        tablaColaboradores.setValueAt(txtUsuario.getText(), fila, 2);
-        tablaColaboradores.setValueAt(txtContrasena.getText(), fila, 3);
-        tablaColaboradores.setValueAt(cmbRol.getSelectedItem(), fila, 4);
-        tablaColaboradores.setValueAt(chkActivo.isSelected(), fila, 5);
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Colaborador editado de forma temporal");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "UPDATE usuarios SET nombre = ?, usuario = ?, contrasena = ?, "
+                    + "rol = ?, activo = ? WHERE id_user = ?";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtNombre.getText());
+            consulta.setString(2, txtUsuario.getText());
+            consulta.setString(3, txtContrasena.getText());
+            consulta.setString(4, cmbRol.getSelectedItem().toString());
+            consulta.setBoolean(5, chkActivo.isSelected());
+            consulta.setInt(6, Integer.parseInt(txtId.getText()));
+            consulta.executeUpdate();
+
+            consulta.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Colaborador editado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo editar el colaborador");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -298,9 +364,25 @@ public class FrmColaboradores extends javax.swing.JFrame {
                 "Deseas eliminar el colaborador seleccionado?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
-            DefaultTableModel modelo = (DefaultTableModel) tablaColaboradores.getModel();
-            modelo.removeRow(fila);
-            limpiarCampos();
+            Connection conexion = Conexion.conectar();
+            if (conexion == null) {
+                return;
+            }
+            try {
+                String sql = "DELETE FROM usuarios WHERE id_user = ?";
+                PreparedStatement consulta = conexion.prepareStatement(sql);
+                consulta.setInt(1, Integer.parseInt(txtId.getText()));
+                consulta.executeUpdate();
+
+                consulta.close();
+                conexion.close();
+                cargarDatos();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Colaborador eliminado");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "No se pudo eliminar el colaborador");
+                System.err.println(e.toString());
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 

@@ -38,3 +38,6 @@ CREATE TABLE Movimientos (
 
 INSERT INTO Usuarios (Nombre, Usuario, Contrasena, Rol, Activo)
 VALUES ('Administrador', 'admin', 'admin123', 'Administrador', TRUE);
+
+INSERT INTO Usuarios (Nombre, Usuario, Contrasena, Rol, Activo)
+VALUES ('Trabajador', 'trabajador', '1234', 'Colaborador', TRUE);

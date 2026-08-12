@@ -4,7 +4,10 @@
  */
 package caventory;
 
-import java.util.Date;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -14,19 +17,77 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmMovimientos extends javax.swing.JFrame {
 
-    private int siguienteId = 2;
-
     public FrmMovimientos() {
         initComponents();
         setLocationRelativeTo(null);
         lblUsuario.setText("Usuario: " + CaVentory.usuarioActual);
-        cargarEjemplo();
+        cargarProductos();
+        cargarDatos();
     }
 
-    private void cargarEjemplo() {
+    private void cargarProductos() {
+        cmbProducto.removeAllItems();
+        cmbProducto.addItem("Seleccione");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT codigo, nombre FROM productos ORDER BY nombre";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                cmbProducto.addItem(resultado.getString("codigo") + " - "
+                        + resultado.getString("nombre"));
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar los productos");
+            System.err.println(e.toString());
+        }
+    }
+
+    private void cargarDatos() {
         DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
-        modelo.addRow(new Object[]{1, "Cuaderno", "Entrada", 10,
-            "11/08/2026 09:00", "Administrador", "Compra inicial"});
+        modelo.setRowCount(0);
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT m.id_movimiento, p.nombre AS producto, m.tipo, "
+                    + "m.cantidad, m.fecha, u.usuario, m.observacion "
+                    + "FROM movimientos m INNER JOIN productos p "
+                    + "ON m.id_producto = p.id_producto INNER JOIN usuarios u "
+                    + "ON m.id_user = u.id_user ORDER BY m.id_movimiento";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                modelo.addRow(new Object[]{
+                    resultado.getInt("id_movimiento"),
+                    resultado.getString("producto"),
+                    resultado.getString("tipo"),
+                    resultado.getInt("cantidad"),
+                    resultado.getTimestamp("fecha"),
+                    resultado.getString("usuario"),
+                    resultado.getString("observacion")
+                });
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar los movimientos");
+            System.err.println(e.toString());
+        }
     }
 
     private void limpiarCampos() {
@@ -70,7 +131,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
         lblProducto.setText("Producto");
 
-        cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cuaderno", "Mouse", "Detergente" }));
+        cmbProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione" }));
 
         lblTipo.setText("Tipo de movimiento");
 
@@ -219,14 +280,68 @@ public class FrmMovimientos extends javax.swing.JFrame {
             return;
         }
 
-        String fecha = new Date().toString();
-        DefaultTableModel modelo = (DefaultTableModel) tablaMovimientos.getModel();
-        modelo.addRow(new Object[]{siguienteId, cmbProducto.getSelectedItem(),
-            cmbTipo.getSelectedItem(), cantidad, fecha, CaVentory.usuarioActual,
-            txtObservacion.getText()});
-        siguienteId++;
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Movimiento registrado de forma temporal");
+        String producto = cmbProducto.getSelectedItem().toString();
+        String codigo = producto.substring(0, producto.indexOf(" - "));
+        String tipo = cmbTipo.getSelectedItem().toString();
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sqlProducto = "SELECT id_producto, existencia FROM productos "
+                    + "WHERE codigo = ?";
+            PreparedStatement buscarProducto = conexion.prepareStatement(sqlProducto);
+            buscarProducto.setString(1, codigo);
+            ResultSet resultado = buscarProducto.executeQuery();
+            resultado.next();
+
+            int idProducto = resultado.getInt("id_producto");
+            int existencia = resultado.getInt("existencia");
+            int nuevaExistencia;
+
+            if (tipo.equals("Entrada")) {
+                nuevaExistencia = existencia + cantidad;
+            } else {
+                if (cantidad > existencia) {
+                    JOptionPane.showMessageDialog(this, "No hay suficiente existencia");
+                    resultado.close();
+                    buscarProducto.close();
+                    conexion.close();
+                    return;
+                }
+                nuevaExistencia = existencia - cantidad;
+            }
+
+            resultado.close();
+            buscarProducto.close();
+
+            String sqlMovimiento = "INSERT INTO movimientos(id_producto, id_user, tipo, "
+                    + "cantidad, observacion) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement guardarMovimiento = conexion.prepareStatement(sqlMovimiento);
+            guardarMovimiento.setInt(1, idProducto);
+            guardarMovimiento.setInt(2, CaVentory.idUsuarioActual);
+            guardarMovimiento.setString(3, tipo);
+            guardarMovimiento.setInt(4, cantidad);
+            guardarMovimiento.setString(5, txtObservacion.getText());
+            guardarMovimiento.executeUpdate();
+
+            String sqlExistencia = "UPDATE productos SET existencia = ? WHERE id_producto = ?";
+            PreparedStatement actualizarExistencia = conexion.prepareStatement(sqlExistencia);
+            actualizarExistencia.setInt(1, nuevaExistencia);
+            actualizarExistencia.setInt(2, idProducto);
+            actualizarExistencia.executeUpdate();
+
+            guardarMovimiento.close();
+            actualizarExistencia.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Movimiento registrado");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo registrar el movimiento");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed

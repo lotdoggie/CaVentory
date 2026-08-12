@@ -4,6 +4,10 @@
  */
 package caventory;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,19 +17,40 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmCategorias extends javax.swing.JFrame {
 
-    private int siguienteId = 4;
-
     public FrmCategorias() {
         initComponents();
         setLocationRelativeTo(null);
-        cargarEjemplos();
+        cargarDatos();
     }
 
-    private void cargarEjemplos() {
+    private void cargarDatos() {
         DefaultTableModel modelo = (DefaultTableModel) tablaCategorias.getModel();
-        modelo.addRow(new Object[]{1, "Papeleria", "Articulos escolares y de oficina"});
-        modelo.addRow(new Object[]{2, "Electronica", "Accesorios y equipo electronico"});
-        modelo.addRow(new Object[]{3, "Limpieza", "Productos para limpieza"});
+        modelo.setRowCount(0);
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "SELECT * FROM categorias ORDER BY id_categoria";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            ResultSet resultado = consulta.executeQuery();
+
+            while (resultado.next()) {
+                modelo.addRow(new Object[]{
+                    resultado.getInt("id_categoria"),
+                    resultado.getString("nombre"),
+                    resultado.getString("descripcion")
+                });
+            }
+
+            resultado.close();
+            consulta.close();
+            conexion.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudieron cargar las categorias");
+            System.err.println(e.toString());
+        }
     }
 
     private void limpiarCampos() {
@@ -232,11 +257,27 @@ public class FrmCategorias extends javax.swing.JFrame {
         if (validarCampos() == false) {
             return;
         }
-        DefaultTableModel modelo = (DefaultTableModel) tablaCategorias.getModel();
-        modelo.addRow(new Object[]{siguienteId, txtNombre.getText(), txtDescripcion.getText()});
-        siguienteId++;
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Categoria agregada de forma temporal");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "INSERT INTO categorias(nombre, descripcion) VALUES (?, ?)";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtNombre.getText());
+            consulta.setString(2, txtDescripcion.getText());
+            consulta.executeUpdate();
+
+            consulta.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Categoria guardada");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo guardar la categoria");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -248,10 +289,29 @@ public class FrmCategorias extends javax.swing.JFrame {
         if (validarCampos() == false) {
             return;
         }
-        tablaCategorias.setValueAt(txtNombre.getText(), fila, 1);
-        tablaCategorias.setValueAt(txtDescripcion.getText(), fila, 2);
-        limpiarCampos();
-        JOptionPane.showMessageDialog(this, "Categoria editada de forma temporal");
+
+        Connection conexion = Conexion.conectar();
+        if (conexion == null) {
+            return;
+        }
+        try {
+            String sql = "UPDATE categorias SET nombre = ?, descripcion = ? "
+                    + "WHERE id_categoria = ?";
+            PreparedStatement consulta = conexion.prepareStatement(sql);
+            consulta.setString(1, txtNombre.getText());
+            consulta.setString(2, txtDescripcion.getText());
+            consulta.setInt(3, Integer.parseInt(txtId.getText()));
+            consulta.executeUpdate();
+
+            consulta.close();
+            conexion.close();
+            cargarDatos();
+            limpiarCampos();
+            JOptionPane.showMessageDialog(this, "Categoria editada");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "No se pudo editar la categoria");
+            System.err.println(e.toString());
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -264,9 +324,26 @@ public class FrmCategorias extends javax.swing.JFrame {
                 "Deseas eliminar la categoria seleccionada?", "Eliminar",
                 JOptionPane.YES_NO_OPTION);
         if (respuesta == JOptionPane.YES_OPTION) {
-            DefaultTableModel modelo = (DefaultTableModel) tablaCategorias.getModel();
-            modelo.removeRow(fila);
-            limpiarCampos();
+            Connection conexion = Conexion.conectar();
+            if (conexion == null) {
+                return;
+            }
+            try {
+                String sql = "DELETE FROM categorias WHERE id_categoria = ?";
+                PreparedStatement consulta = conexion.prepareStatement(sql);
+                consulta.setInt(1, Integer.parseInt(txtId.getText()));
+                consulta.executeUpdate();
+
+                consulta.close();
+                conexion.close();
+                cargarDatos();
+                limpiarCampos();
+                JOptionPane.showMessageDialog(this, "Categoria eliminada");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede eliminar una categoria que tenga productos");
+                System.err.println(e.toString());
+            }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
