@@ -6,3 +6,10 @@ Cambios versión 26.3
 - Las existencias bajas ahora se muestran en color naranja.
 - Los archivos PDF utilizan los nuevos colores.
 - Se mantuvo la misma estructura y funcionamiento.
+- Se revisó y simplificó el código general.
+- Se corrigió el conteo de colaboradores activos en reportes.
+- Se comprobaron las ventanas y las funciones principales.
+- La conexión ahora utiliza el archivo conexion.properties.
+- Se agregó un ejemplo de conexión sin contraseña para GitHub.
+- Se agregó el manual de instalación en el README.
+- Se agregó el manual de usuario con la instalación desde NetBeans.
