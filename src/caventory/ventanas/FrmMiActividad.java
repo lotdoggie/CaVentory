@@ -97,10 +97,10 @@ public class FrmMiActividad extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Historial de movimientos");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Historial de movimientos");
 
         lblUsuario.setText("Usuario:");
@@ -108,7 +108,7 @@ public class FrmMiActividad extends javax.swing.JFrame {
         lblAviso.setText("Consulta los movimientos registrados por tu usuario");
 
         btnHoy.setText("Hoy");
-        btnHoy.setBackground(new java.awt.Color(225, 235, 245));
+        btnHoy.setBackground(new java.awt.Color(226, 239, 231));
         btnHoy.setFocusPainted(false);
         btnHoy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +117,7 @@ public class FrmMiActividad extends javax.swing.JFrame {
         });
 
         btnTodos.setText("Todos");
-        btnTodos.setBackground(new java.awt.Color(225, 235, 245));
+        btnTodos.setBackground(new java.awt.Color(226, 239, 231));
         btnTodos.setFocusPainted(false);
         btnTodos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,7 +148,7 @@ public class FrmMiActividad extends javax.swing.JFrame {
         lblResumen.setText("Movimientos mostrados: 0 | Entradas: 0 | Salidas: 0");
 
         btnActualizar.setText("Actualizar");
-        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setBackground(new java.awt.Color(47, 107, 79));
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {

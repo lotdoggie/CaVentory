@@ -25,6 +25,10 @@ public class FrmColaboradores extends javax.swing.JFrame {
         cargarDatos();
     }
 
+    private String obtenerContrasena() {
+        return new String(txtContrasena.getPassword());
+    }
+
     private void cargarDatos() {
         DefaultTableModel modelo = (DefaultTableModel) tablaColaboradores.getModel();
         modelo.setRowCount(0);
@@ -60,8 +64,27 @@ public class FrmColaboradores extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        if (txtNombre.getText().trim().isEmpty() || txtUsuario.getText().trim().isEmpty()) {
+        String nombre = txtNombre.getText().trim();
+        String usuario = txtUsuario.getText().trim();
+        String contrasena = obtenerContrasena();
+
+        if (nombre.isEmpty() || usuario.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escribe el nombre y el usuario");
+            return false;
+        }
+        if (nombre.length() > 100) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre no puede tener más de 100 caracteres");
+            return false;
+        }
+        if (usuario.length() > 50 || usuario.contains(" ")) {
+            JOptionPane.showMessageDialog(this,
+                    "El usuario no puede tener espacios ni más de 50 caracteres");
+            return false;
+        }
+        if (contrasena.length() > 100) {
+            JOptionPane.showMessageDialog(this,
+                    "La contraseña no puede tener más de 100 caracteres");
             return false;
         }
         return true;
@@ -112,6 +135,10 @@ public class FrmColaboradores extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnTodos = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaColaboradores = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
@@ -119,10 +146,10 @@ public class FrmColaboradores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Colaboradores");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Colaboradores");
 
         lblAviso.setForeground(new java.awt.Color(90, 90, 90));
@@ -146,7 +173,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
         chkActivo.setText("Usuario activo");
 
         btnGuardar.setText("Guardar");
-        btnGuardar.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardar.setBackground(new java.awt.Color(47, 107, 79));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFocusPainted(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +203,31 @@ public class FrmColaboradores extends javax.swing.JFrame {
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        lblBuscar.setText("Buscar por nombre o usuario");
+
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setBackground(new java.awt.Color(47, 107, 79));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFocusPainted(false);
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnTodos.setText("Todos");
+        btnTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTodosActionPerformed(evt);
             }
         });
 
@@ -245,6 +297,13 @@ public class FrmColaboradores extends javax.swing.JFrame {
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBuscar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(btnTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
@@ -289,7 +348,14 @@ public class FrmColaboradores extends javax.swing.JFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnLimpiar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar)
+                            .addComponent(btnTodos))
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(btnCerrar)))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -302,7 +368,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
         if (validarCampos() == false) {
             return;
         }
-        if (txtContrasena.getText().isEmpty()) {
+        if (obtenerContrasena().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escribe una contraseña");
             return;
         }
@@ -317,7 +383,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
             PreparedStatement consulta = conexion.prepareStatement(sql);
             consulta.setString(1, txtNombre.getText().trim());
             consulta.setString(2, txtUsuario.getText().trim());
-            consulta.setString(3, txtContrasena.getText());
+            consulta.setString(3, obtenerContrasena());
             consulta.setString(4, cmbRol.getSelectedItem().toString());
             consulta.setBoolean(5, chkActivo.isSelected());
             consulta.executeUpdate();
@@ -359,7 +425,7 @@ public class FrmColaboradores extends javax.swing.JFrame {
         }
         try {
             String sql;
-            if (txtContrasena.getText().isEmpty()) {
+            if (obtenerContrasena().isEmpty()) {
                 sql = "UPDATE usuarios SET nombre = ?, usuario = ?, rol = ?, activo = ? "
                         + "WHERE id_user = ?";
             } else {
@@ -369,12 +435,12 @@ public class FrmColaboradores extends javax.swing.JFrame {
             PreparedStatement consulta = conexion.prepareStatement(sql);
             consulta.setString(1, txtNombre.getText().trim());
             consulta.setString(2, txtUsuario.getText().trim());
-            if (txtContrasena.getText().isEmpty()) {
+            if (obtenerContrasena().isEmpty()) {
                 consulta.setString(3, cmbRol.getSelectedItem().toString());
                 consulta.setBoolean(4, chkActivo.isSelected());
                 consulta.setInt(5, idUsuario);
             } else {
-                consulta.setString(3, txtContrasena.getText());
+                consulta.setString(3, obtenerContrasena());
                 consulta.setString(4, cmbRol.getSelectedItem().toString());
                 consulta.setBoolean(5, chkActivo.isSelected());
                 consulta.setInt(6, idUsuario);
@@ -434,6 +500,39 @@ public class FrmColaboradores extends javax.swing.JFrame {
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void buscarColaborador() {
+        String texto = txtBuscar.getText().trim().toLowerCase();
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escribe un nombre o usuario");
+            return;
+        }
+
+        for (int fila = 0; fila < tablaColaboradores.getRowCount(); fila++) {
+            String nombre = tablaColaboradores.getValueAt(fila, 1).toString().toLowerCase();
+            String usuario = tablaColaboradores.getValueAt(fila, 2).toString().toLowerCase();
+            if (nombre.contains(texto) || usuario.contains(texto)) {
+                tablaColaboradores.setRowSelectionInterval(fila, fila);
+                seleccionarColaborador();
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "No se encontró el colaborador");
+    }
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarColaborador();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        buscarColaborador();
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
+        txtBuscar.setText("");
+        cargarDatos();
+        limpiarCampos();
+    }//GEN-LAST:event_btnTodosActionPerformed
+
     private void tablaColaboradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaColaboradoresMouseClicked
         seleccionarColaborador();
     }//GEN-LAST:event_tablaColaboradoresMouseClicked
@@ -444,14 +543,17 @@ public class FrmColaboradores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnTodos;
     private javax.swing.JCheckBox chkActivo;
     private javax.swing.JComboBox<String> cmbRol;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAviso;
+    private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblContrasena;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblNombre;
@@ -463,5 +565,6 @@ public class FrmColaboradores extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,0 +1,8 @@
+Cambios versión 26.3
+
+- Se cambió el color principal de la aplicación.
+- Las ventanas ahora utilizan tonos verdes.
+- Se mejoraron los colores de botones, títulos y fondos.
+- Las existencias bajas ahora se muestran en color naranja.
+- Los archivos PDF utilizan los nuevos colores.
+- Se mantuvo la misma estructura y funcionamiento.

@@ -70,13 +70,13 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CaVentory - Colaborador");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Panel del colaborador");
 
-        lblVersion.setText("CaVentory 26.1f");
+        lblVersion.setText("CaVentory 26.3");
 
         lblUsuarioActual.setText("Usuario:");
 
@@ -89,7 +89,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         lblInstruccion.setText("Acciones disponibles");
 
         btnConsultarProductos.setText("Consultar inventario");
-        btnConsultarProductos.setBackground(new java.awt.Color(47, 111, 163));
+        btnConsultarProductos.setBackground(new java.awt.Color(47, 107, 79));
         btnConsultarProductos.setForeground(new java.awt.Color(255, 255, 255));
         btnConsultarProductos.setFocusPainted(false);
         btnConsultarProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +99,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         });
 
         btnMovimientos.setText("Registrar entrada o salida");
-        btnMovimientos.setBackground(new java.awt.Color(225, 235, 245));
+        btnMovimientos.setBackground(new java.awt.Color(226, 239, 231));
         btnMovimientos.setFocusPainted(false);
         btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         });
 
         btnMiActividad.setText("Historial de movimientos");
-        btnMiActividad.setBackground(new java.awt.Color(225, 235, 245));
+        btnMiActividad.setBackground(new java.awt.Color(226, 239, 231));
         btnMiActividad.setFocusPainted(false);
         btnMiActividad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +120,7 @@ public class FrmMenuColaborador extends javax.swing.JFrame {
         lblPermisos.setText("Puedes consultar existencias y registrar movimientos.");
 
         btnActualizar.setText("Actualizar datos");
-        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setBackground(new java.awt.Color(47, 107, 79));
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {

@@ -80,13 +80,13 @@ public class GeneradorPDF {
     private static String pagina(JTable tabla, String titulo,
             String resumen, int pagina, int paginas) {
         StringBuilder contenido = new StringBuilder();
-        contenido.append("q 0.12 0.31 0.47 rg 0 525 842 70 re f Q\n");
+        contenido.append("q 0.14 0.32 0.24 rg 0 525 842 70 re f Q\n");
         texto(contenido, "F2", 24, "1 1 1", 30, 558, "CaVentory");
-        texto(contenido, "F1", 12, "0.85 0.92 0.98", 30, 536,
+        texto(contenido, "F1", 12, "0.88 0.95 0.90", 30, 536,
                 cortar(titulo, 90));
 
-        contenido.append("q 0.93 0.96 0.99 rg 30 480 782 28 re f Q\n");
-        texto(contenido, "F2", 9, "0.12 0.24 0.36", 40, 490,
+        contenido.append("q 0.93 0.97 0.94 rg 30 480 782 28 re f Q\n");
+        texto(contenido, "F2", 9, "0.14 0.28 0.20", 40, 490,
                 cortar(resumen, 125));
 
         fila(contenido, tabla, -1, 452, true);
@@ -120,16 +120,16 @@ public class GeneradorPDF {
         for (int i = 0; i < columnas; i++) {
             int anchoCelda = i == columnas - 1 ? 812 - x : ancho;
             if (encabezado) {
-                contenido.append("q 0.18 0.43 0.64 rg ")
+                contenido.append("q 0.18 0.42 0.31 rg ")
                         .append(x).append(" ").append(y).append(" ")
                         .append(anchoCelda).append(" 22 re f Q\n");
             } else if (fila % 2 == 0) {
-                contenido.append("q 0.96 0.97 0.99 rg ")
+                contenido.append("q 0.96 0.98 0.96 rg ")
                         .append(x).append(" ").append(y).append(" ")
                         .append(anchoCelda).append(" 18 re f Q\n");
             }
 
-            contenido.append("q 0.72 0.78 0.84 RG 0.5 w ")
+            contenido.append("q 0.70 0.79 0.73 RG 0.5 w ")
                     .append(x).append(" ").append(y).append(" ")
                     .append(anchoCelda).append(" ")
                     .append(encabezado ? 22 : 18).append(" re S Q\n");

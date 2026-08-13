@@ -72,6 +72,21 @@ public class FrmProveedores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Escribe el nombre del proveedor");
             return false;
         }
+        if (nombre.length() > 100) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre no puede tener más de 100 caracteres");
+            return false;
+        }
+        if (txtTelefono.getText().trim().length() > 30) {
+            JOptionPane.showMessageDialog(this,
+                    "El teléfono no puede tener más de 30 caracteres");
+            return false;
+        }
+        if (correo.length() > 100) {
+            JOptionPane.showMessageDialog(this,
+                    "El correo no puede tener más de 100 caracteres");
+            return false;
+        }
         if (correo.isEmpty() == false && correo.contains("@") == false) {
             JOptionPane.showMessageDialog(this, "Escribe un correo válido");
             return false;
@@ -130,6 +145,10 @@ public class FrmProveedores extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnTodos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaProveedores = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
@@ -137,10 +156,10 @@ public class FrmProveedores extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Proveedores");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Proveedores");
 
         lblAviso.setForeground(new java.awt.Color(90, 90, 90));
@@ -168,7 +187,7 @@ public class FrmProveedores extends javax.swing.JFrame {
         chkActivo.setText("Proveedor activo");
 
         btnGuardar.setText("Guardar");
-        btnGuardar.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardar.setBackground(new java.awt.Color(47, 107, 79));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFocusPainted(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -198,6 +217,31 @@ public class FrmProveedores extends javax.swing.JFrame {
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        lblBuscar.setText("Buscar por nombre o correo");
+
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setBackground(new java.awt.Color(47, 107, 79));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFocusPainted(false);
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnTodos.setText("Todos");
+        btnTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTodosActionPerformed(evt);
             }
         });
 
@@ -267,6 +311,13 @@ public class FrmProveedores extends javax.swing.JFrame {
                                     .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBuscar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(btnTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
@@ -311,7 +362,14 @@ public class FrmProveedores extends javax.swing.JFrame {
                             .addComponent(btnEliminar)
                             .addComponent(btnLimpiar)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 430, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar)
+                            .addComponent(btnTodos))
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(btnCerrar)))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -426,6 +484,39 @@ public class FrmProveedores extends javax.swing.JFrame {
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void buscarProveedor() {
+        String texto = txtBuscar.getText().trim().toLowerCase();
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escribe un nombre o correo");
+            return;
+        }
+
+        for (int fila = 0; fila < tablaProveedores.getRowCount(); fila++) {
+            String nombre = tablaProveedores.getValueAt(fila, 1).toString().toLowerCase();
+            String correo = tablaProveedores.getValueAt(fila, 3).toString().toLowerCase();
+            if (nombre.contains(texto) || correo.contains(texto)) {
+                tablaProveedores.setRowSelectionInterval(fila, fila);
+                seleccionarProveedor();
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "No se encontró el proveedor");
+    }
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarProveedor();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        buscarProveedor();
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
+        txtBuscar.setText("");
+        cargarDatos();
+        limpiarCampos();
+    }//GEN-LAST:event_btnTodosActionPerformed
+
     private void tablaProveedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaProveedoresMouseClicked
         seleccionarProveedor();
     }//GEN-LAST:event_tablaProveedoresMouseClicked
@@ -436,14 +527,17 @@ public class FrmProveedores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnTodos;
     private javax.swing.JCheckBox chkActivo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAviso;
+    private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCorreo;
     private javax.swing.JLabel lblDireccion;
     private javax.swing.JLabel lblId;
@@ -456,5 +550,6 @@ public class FrmProveedores extends javax.swing.JFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }

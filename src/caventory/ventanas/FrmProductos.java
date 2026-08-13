@@ -141,10 +141,21 @@ public class FrmProductos extends javax.swing.JFrame {
             return false;
         }
 
+        if (txtCodigo.getText().trim().length() > 30) {
+            JOptionPane.showMessageDialog(this,
+                    "El código no puede tener más de 30 caracteres");
+            return false;
+        }
+        if (txtNombre.getText().trim().length() > 100) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre no puede tener más de 100 caracteres");
+            return false;
+        }
+
         try {
-            double precio = Double.parseDouble(txtPrecio.getText());
-            int existencia = Integer.parseInt(txtExistencia.getText());
-            int minimo = Integer.parseInt(txtMinimo.getText());
+            double precio = Double.parseDouble(txtPrecio.getText().trim());
+            int existencia = Integer.parseInt(txtExistencia.getText().trim());
+            int minimo = Integer.parseInt(txtMinimo.getText().trim());
 
             if (precio < 0 || existencia < 0 || minimo < 0) {
                 JOptionPane.showMessageDialog(this,
@@ -226,10 +237,10 @@ public class FrmProductos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Productos");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Productos");
 
         lblRol.setText("Rol:");
@@ -257,7 +268,7 @@ public class FrmProductos extends javax.swing.JFrame {
         lblMinimo.setText("Stock mínimo");
 
         btnGuardar.setText("Guardar");
-        btnGuardar.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardar.setBackground(new java.awt.Color(47, 107, 79));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFocusPainted(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -294,7 +305,7 @@ public class FrmProductos extends javax.swing.JFrame {
         lblBuscar.setText("Buscar por código o nombre");
 
         btnBuscar.setText("Buscar");
-        btnBuscar.setBackground(new java.awt.Color(47, 111, 163));
+        btnBuscar.setBackground(new java.awt.Color(47, 107, 79));
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setFocusPainted(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -469,7 +480,8 @@ public class FrmProductos extends javax.swing.JFrame {
             return;
         }
         try {
-            int existencia = Integer.parseInt(txtExistencia.getText());
+            conexion.setAutoCommit(false);
+            int existencia = Integer.parseInt(txtExistencia.getText().trim());
 
             String sql = "INSERT INTO productos(codigo, nombre, id_categoria, id_proveedor, "
                     + "precio, existencia, stock_minimo) VALUES (?, ?, "
@@ -480,9 +492,9 @@ public class FrmProductos extends javax.swing.JFrame {
             consulta.setString(2, txtNombre.getText().trim());
             consulta.setString(3, cmbCategoria.getSelectedItem().toString());
             consulta.setString(4, cmbProveedor.getSelectedItem().toString());
-            consulta.setDouble(5, Double.parseDouble(txtPrecio.getText()));
+            consulta.setDouble(5, Double.parseDouble(txtPrecio.getText().trim()));
             consulta.setInt(6, existencia);
-            consulta.setInt(7, Integer.parseInt(txtMinimo.getText()));
+            consulta.setInt(7, Integer.parseInt(txtMinimo.getText().trim()));
             consulta.executeUpdate();
             consulta.close();
 
@@ -507,11 +519,17 @@ public class FrmProductos extends javax.swing.JFrame {
                 movimiento.close();
             }
 
+            conexion.commit();
             Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Producto guardado");
         } catch (SQLException e) {
+            try {
+                conexion.rollback();
+            } catch (SQLException error) {
+                System.err.println(error.toString());
+            }
             JOptionPane.showMessageDialog(this, "No se pudo guardar el producto");
             System.err.println(e.toString());
             Conexion.cerrar(conexion);
@@ -543,8 +561,8 @@ public class FrmProductos extends javax.swing.JFrame {
             consulta.setString(2, txtNombre.getText().trim());
             consulta.setString(3, cmbCategoria.getSelectedItem().toString());
             consulta.setString(4, cmbProveedor.getSelectedItem().toString());
-            consulta.setDouble(5, Double.parseDouble(txtPrecio.getText()));
-            consulta.setInt(6, Integer.parseInt(txtMinimo.getText()));
+            consulta.setDouble(5, Double.parseDouble(txtPrecio.getText().trim()));
+            consulta.setInt(6, Integer.parseInt(txtMinimo.getText().trim()));
             consulta.setInt(7, Integer.parseInt(txtId.getText()));
             consulta.executeUpdate();
 

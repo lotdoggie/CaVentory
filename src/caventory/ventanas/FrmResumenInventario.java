@@ -51,7 +51,7 @@ public class FrmResumenInventario extends javax.swing.JFrame {
 
             lblProductos.setText("Productos registrados: " + productos);
             lblUnidades.setText("Unidades en inventario: " + unidades);
-            lblValor.setText("Valor aproximado: $" + valor);
+            lblValor.setText("Valor aproximado: $" + String.format("%.2f", valor));
             lblBajos.setText("Productos con existencia baja: " + productosBajos);
 
             int categorias = 0;
@@ -140,10 +140,10 @@ public class FrmResumenInventario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Resumen de inventario");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Resumen de inventario");
 
         lblAviso.setText("Información general del sistema");
@@ -155,6 +155,8 @@ public class FrmResumenInventario extends javax.swing.JFrame {
         lblValor.setText("Valor aproximado: $0.00");
 
         lblBajos.setText("Productos con existencia baja: 0");
+        lblBajos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblBajos.setForeground(new java.awt.Color(210, 140, 40));
 
         lblCatalogos.setText("Categorías: 0 | Proveedores activos: 0 | Colaboradores activos: 0");
 
@@ -182,7 +184,7 @@ public class FrmResumenInventario extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tablaExistenciaBaja);
 
         btnActualizar.setText("Actualizar");
-        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setBackground(new java.awt.Color(47, 107, 79));
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {

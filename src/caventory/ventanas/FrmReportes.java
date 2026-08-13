@@ -202,25 +202,25 @@ public class FrmReportes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Reportes");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Reportes y análisis");
 
         lblUsuario.setText("Usuario:");
 
-        lblInstruccion.setText("Selecciona la información que deseas consultar o imprimir");
+        lblInstruccion.setText("Selecciona la información que deseas consultar o guardar");
 
         lblReporte.setText("Reporte");
 
         cmbReporte.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Resumen general", "Inventario completo", "Existencia baja", "Movimientos", "Categorías", "Proveedores", "Colaboradores" }));
 
-        lblPeriodo.setText("Periodo");
+        lblPeriodo.setText("Período");
 
         cmbPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Hoy", "Este mes" }));
 
-        btnVer.setBackground(new java.awt.Color(225, 235, 245));
+        btnVer.setBackground(new java.awt.Color(226, 239, 231));
         btnVer.setFocusPainted(false);
         btnVer.setText("Ver datos");
         btnVer.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +230,7 @@ public class FrmReportes extends javax.swing.JFrame {
         });
 
         lblAviso.setForeground(new java.awt.Color(90, 90, 90));
-        lblAviso.setText("El periodo solamente se utiliza en el reporte de movimientos");
+        lblAviso.setText("El período solamente se utiliza en el reporte de movimientos");
 
         tablaReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,7 +255,7 @@ public class FrmReportes extends javax.swing.JFrame {
         lblResumen.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblResumen.setText("Indicadores generales del sistema");
 
-        btnGuardarPDF.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardarPDF.setBackground(new java.awt.Color(47, 107, 79));
         btnGuardarPDF.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardarPDF.setFocusPainted(false);
         btnGuardarPDF.setText("Guardar PDF");

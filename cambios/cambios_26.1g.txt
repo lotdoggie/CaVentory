@@ -1,0 +1,9 @@
+Cambios versión 26.1g
+
+- Se agregó la ventana de ajustes de inventario.
+- Los ajustes guardan el motivo, el usuario y la fecha.
+- Se agregaron buscadores en colaboradores, proveedores y movimientos.
+- Se mejoró el orden de los botones del menú del administrador.
+- Se agregaron validaciones en los formularios.
+- Se corrigieron textos y errores ortográficos.
+- Se revisó el guardado de productos y movimientos.

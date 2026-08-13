@@ -40,10 +40,10 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CaVentory - Inicio de sesión");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("CaVentory");
 
@@ -55,7 +55,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         lblContrasena.setText("Contraseña");
 
         btnIngresar.setText("Ingresar");
-        btnIngresar.setBackground(new java.awt.Color(47, 111, 163));
+        btnIngresar.setBackground(new java.awt.Color(47, 107, 79));
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setFocusPainted(false);
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +72,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
         });
 
         lblVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblVersion.setText("Versión 26.1f");
+        lblVersion.setText("Versión 26.3");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,7 +123,7 @@ public class FrmInicioSesion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         String usuario = txtUsuario.getText().trim();
-        String contrasena = txtContrasena.getText();
+        String contrasena = new String(txtContrasena.getPassword());
 
         if (usuario.isEmpty() || contrasena.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escribe el usuario y la contraseña");

@@ -5,7 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="CaVentory - Consulta de inventario"/>
     <Property name="resizable" type="boolean" value="false"/>
-    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="fa" green="f7" red="f5" type="rgb"/></Property>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f6" green="f8" red="f6" type="rgb"/></Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -56,11 +56,11 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblTitulo"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="79" green="4e" red="1f" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Consulta de inventario"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblTitulo"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="3c" green="52" red="23" type="rgb"/></Property><Property name="text" type="java.lang.String" value="Consulta de inventario"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuario"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblBuscar"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="12" style="1"/></Property><Property name="text" type="java.lang.String" value="Buscar por código o nombre"/></Properties></Component>
     <Component class="javax.swing.JTextField" name="txtBuscar"/>
-    <Component class="javax.swing.JButton" name="btnBuscar"><Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="a3" green="6f" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Buscar"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/></Events></Component>
+    <Component class="javax.swing.JButton" name="btnBuscar"><Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="4f" green="6b" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Buscar"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/></Events></Component>
     <Component class="javax.swing.JButton" name="btnTodos"><Properties><Property name="text" type="java.lang.String" value="Todos"/></Properties><Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTodosActionPerformed"/></Events></Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <AuxValues><AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/></AuxValues>
