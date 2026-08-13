@@ -23,7 +23,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lblUsuarioActual.setText("Usuario: " + CaVentory.usuarioActual);
         lblRolActual.setText("Rol: " + CaVentory.rolActual);
-        lblPermisos.setText("Puedes administrar productos, categorías, movimientos y colaboradores.");
+        lblPermisos.setText("Puedes administrar el inventario y generar reportes.");
         cargarResumen();
     }
 
@@ -68,10 +68,12 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         lblInstruccion = new javax.swing.JLabel();
         btnProductos = new javax.swing.JButton();
         btnMovimientos = new javax.swing.JButton();
+        btnAjustes = new javax.swing.JButton();
         btnCategorias = new javax.swing.JButton();
         btnColaboradores = new javax.swing.JButton();
         btnProveedores = new javax.swing.JButton();
         btnResumen = new javax.swing.JButton();
+        btnReportes = new javax.swing.JButton();
         lblPermisos = new javax.swing.JLabel();
         btnActualizar = new javax.swing.JButton();
         btnCerrarSesion = new javax.swing.JButton();
@@ -80,13 +82,13 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("CaVentory - Administrador");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Panel del administrador");
 
-        lblVersion.setText("CaVentory 26.1d");
+        lblVersion.setText("CaVentory 26.3");
 
         lblUsuarioActual.setText("Usuario:");
 
@@ -99,7 +101,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         lblInstruccion.setText("Módulos del sistema");
 
         btnProductos.setText("Productos");
-        btnProductos.setBackground(new java.awt.Color(225, 235, 245));
+        btnProductos.setBackground(new java.awt.Color(226, 239, 231));
         btnProductos.setFocusPainted(false);
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +110,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnMovimientos.setText("Entradas y salidas");
-        btnMovimientos.setBackground(new java.awt.Color(225, 235, 245));
+        btnMovimientos.setBackground(new java.awt.Color(226, 239, 231));
         btnMovimientos.setFocusPainted(false);
         btnMovimientos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,8 +118,17 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnAjustes.setText("Ajustes de inventario");
+        btnAjustes.setBackground(new java.awt.Color(226, 239, 231));
+        btnAjustes.setFocusPainted(false);
+        btnAjustes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAjustesActionPerformed(evt);
+            }
+        });
+
         btnCategorias.setText("Categorías");
-        btnCategorias.setBackground(new java.awt.Color(225, 235, 245));
+        btnCategorias.setBackground(new java.awt.Color(226, 239, 231));
         btnCategorias.setFocusPainted(false);
         btnCategorias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +137,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnColaboradores.setText("Colaboradores");
-        btnColaboradores.setBackground(new java.awt.Color(225, 235, 245));
+        btnColaboradores.setBackground(new java.awt.Color(226, 239, 231));
         btnColaboradores.setFocusPainted(false);
         btnColaboradores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +146,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnProveedores.setText("Proveedores");
-        btnProveedores.setBackground(new java.awt.Color(225, 235, 245));
+        btnProveedores.setBackground(new java.awt.Color(226, 239, 231));
         btnProveedores.setFocusPainted(false);
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,8 +155,7 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         });
 
         btnResumen.setText("Resumen de inventario");
-        btnResumen.setBackground(new java.awt.Color(47, 111, 163));
-        btnResumen.setForeground(new java.awt.Color(255, 255, 255));
+        btnResumen.setBackground(new java.awt.Color(226, 239, 231));
         btnResumen.setFocusPainted(false);
         btnResumen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,11 +163,21 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
             }
         });
 
+        btnReportes.setText("Reportes y análisis");
+        btnReportes.setBackground(new java.awt.Color(47, 107, 79));
+        btnReportes.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportes.setFocusPainted(false);
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
+
         lblPermisos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPermisos.setText("Permisos del usuario");
 
         btnActualizar.setText("Actualizar datos");
-        btnActualizar.setBackground(new java.awt.Color(47, 111, 163));
+        btnActualizar.setBackground(new java.awt.Color(47, 107, 79));
         btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -201,12 +221,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnProductos, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                             .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnResumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnMovimientos, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                            .addComponent(btnColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnResumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAjustes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(lblPermisos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,11 +260,15 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                    .addComponent(btnColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                    .addComponent(btnResumen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnColaboradores, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(btnAjustes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnResumen, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
+                    .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(20, 20, 20)
                 .addComponent(lblPermisos)
                 .addGap(20, 20, 20)
@@ -266,6 +292,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         movimientos.setVisible(true);
     }//GEN-LAST:event_btnMovimientosActionPerformed
 
+    private void btnAjustesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAjustesActionPerformed
+        FrmAjustes ajustes = new FrmAjustes();
+        ajustes.setVisible(true);
+    }//GEN-LAST:event_btnAjustesActionPerformed
+
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         FrmCategorias categorias = new FrmCategorias();
         categorias.setVisible(true);
@@ -285,6 +316,11 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
         FrmResumenInventario resumen = new FrmResumenInventario();
         resumen.setVisible(true);
     }//GEN-LAST:event_btnResumenActionPerformed
+
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        FrmReportes reportes = new FrmReportes();
+        reportes.setVisible(true);
+    }//GEN-LAST:event_btnReportesActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         cargarResumen();
@@ -308,12 +344,14 @@ public class FrmMenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnAjustes;
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnCerrarSesion;
     private javax.swing.JButton btnColaboradores;
     private javax.swing.JButton btnMovimientos;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnProveedores;
+    private javax.swing.JButton btnReportes;
     private javax.swing.JButton btnResumen;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel lblInstruccion;

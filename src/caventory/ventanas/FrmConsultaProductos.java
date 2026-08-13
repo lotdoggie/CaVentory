@@ -92,10 +92,10 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Consulta de inventario");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Consulta de inventario");
 
         lblUsuario.setText("Usuario:");
@@ -104,7 +104,7 @@ public class FrmConsultaProductos extends javax.swing.JFrame {
         lblBuscar.setText("Buscar por código o nombre");
 
         btnBuscar.setText("Buscar");
-        btnBuscar.setBackground(new java.awt.Color(47, 111, 163));
+        btnBuscar.setBackground(new java.awt.Color(47, 107, 79));
         btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
         btnBuscar.setFocusPainted(false);
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {

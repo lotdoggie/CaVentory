@@ -69,9 +69,13 @@ public class FrmCategorias extends javax.swing.JFrame {
     }
 
     private boolean validarCampos() {
-        if (txtNombre.getText().trim().isEmpty()
-                || txtDescripcion.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escribe el nombre y la descripción");
+        if (txtNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Escribe el nombre de la categoría");
+            return false;
+        }
+        if (txtNombre.getText().trim().length() > 100) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre no puede tener más de 100 caracteres");
             return false;
         }
         if (txtDescripcion.getText().trim().length() > 200) {
@@ -116,10 +120,10 @@ public class FrmCategorias extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Categorías");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Categorías");
 
         lblAviso.setForeground(new java.awt.Color(90, 90, 90));
@@ -140,7 +144,7 @@ public class FrmCategorias extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtDescripcion);
 
         btnGuardar.setText("Guardar");
-        btnGuardar.setBackground(new java.awt.Color(47, 111, 163));
+        btnGuardar.setBackground(new java.awt.Color(47, 107, 79));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFocusPainted(false);
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {

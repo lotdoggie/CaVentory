@@ -5,7 +5,7 @@
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="CaVentory - Administrador"/>
     <Property name="resizable" type="boolean" value="false"/>
-    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="fa" green="f7" red="f5" type="rgb"/></Property>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f6" green="f8" red="f6" type="rgb"/></Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -42,15 +42,17 @@
             <Component id="lblInstruccion" min="-2" max="-2" attributes="0"/>
             <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                <Component id="btnProductos" pref="280" max="32767" attributes="0"/>
-                <Component id="btnCategorias" pref="280" max="32767" attributes="0"/>
-                <Component id="btnProveedores" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnProductos" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnCategorias" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnColaboradores" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnResumen" pref="280" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                <Component id="btnMovimientos" pref="280" max="32767" attributes="0"/>
-                <Component id="btnColaboradores" pref="280" max="32767" attributes="0"/>
-                <Component id="btnResumen" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnMovimientos" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnProveedores" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnAjustes" pref="280" max="32767" attributes="0"/>
+                            <Component id="btnReportes" pref="280" max="32767" attributes="0"/>
               </Group>
             </Group>
             <Component id="lblPermisos" pref="585" max="32767" attributes="0"/>
@@ -91,12 +93,17 @@
           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           <Group type="103" groupAlignment="0" max="-2" attributes="0">
             <Component id="btnCategorias" pref="55" max="32767" attributes="0"/>
-            <Component id="btnColaboradores" max="32767" attributes="0"/>
+            <Component id="btnProveedores" max="32767" attributes="0"/>
           </Group>
           <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-            <Component id="btnProveedores" pref="55" max="32767" attributes="0"/>
-            <Component id="btnResumen" max="32767" attributes="0"/>
+            <Component id="btnColaboradores" pref="55" max="32767" attributes="0"/>
+            <Component id="btnAjustes" max="32767" attributes="0"/>
+          </Group>
+          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+            <Component id="btnResumen" pref="55" max="32767" attributes="0"/>
+            <Component id="btnReportes" max="32767" attributes="0"/>
           </Group>
           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
           <Component id="lblPermisos" min="-2" max="-2" attributes="0"/>
@@ -115,44 +122,52 @@
     <Component class="javax.swing.JLabel" name="lblTitulo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="24" style="1"/></Property>
-        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="79" green="4e" red="1f" type="rgb"/></Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="3c" green="52" red="23" type="rgb"/></Property>
         <Property name="text" type="java.lang.String" value="Panel del administrador"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.1d"/></Properties></Component>
+    <Component class="javax.swing.JLabel" name="lblVersion"><Properties><Property name="text" type="java.lang.String" value="CaVentory 26.3"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblUsuarioActual"><Properties><Property name="text" type="java.lang.String" value="Usuario:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblRolActual"><Properties><Property name="text" type="java.lang.String" value="Rol:"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblResumen"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="12" style="1"/></Property><Property name="text" type="java.lang.String" value="Productos: 0 | Existencia baja: 0 | Movimientos de hoy: 0"/></Properties></Component>
     <Component class="javax.swing.JLabel" name="lblInstruccion"><Properties><Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor"><Font name="Segoe UI" size="14" style="1"/></Property><Property name="text" type="java.lang.String" value="Módulos del sistema"/></Properties></Component>
     <Component class="javax.swing.JButton" name="btnProductos">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f5" green="eb" red="e1" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Productos"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Productos"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnMovimientos">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f5" green="eb" red="e1" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Entradas y salidas"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Entradas y salidas"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMovimientosActionPerformed"/></Events>
     </Component>
+    <Component class="javax.swing.JButton" name="btnAjustes">
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Ajustes de inventario"/></Properties>
+      <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAjustesActionPerformed"/></Events>
+    </Component>
     <Component class="javax.swing.JButton" name="btnCategorias">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f5" green="eb" red="e1" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Categorías"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Categorías"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCategoriasActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnColaboradores">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f5" green="eb" red="e1" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Colaboradores"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Colaboradores"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnColaboradoresActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnProveedores">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="f5" green="eb" red="e1" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Proveedores"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Proveedores"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProveedoresActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnResumen">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="a3" green="6f" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Resumen de inventario"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="e7" green="ef" red="e2" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Resumen de inventario"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnResumenActionPerformed"/></Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnReportes">
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="4f" green="6b" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Reportes y análisis"/></Properties>
+      <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportesActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblPermisos">
       <Properties><Property name="horizontalAlignment" type="int" value="0"/><Property name="text" type="java.lang.String" value="Permisos del usuario"/></Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnActualizar">
-      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="a3" green="6f" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Actualizar datos"/></Properties>
+      <Properties><Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="4f" green="6b" red="2f" type="rgb"/></Property><Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor"><Color blue="ff" green="ff" red="ff" type="rgb"/></Property><Property name="focusPainted" type="boolean" value="false"/><Property name="text" type="java.lang.String" value="Actualizar datos"/></Properties>
       <Events><EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarActionPerformed"/></Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCerrarSesion">

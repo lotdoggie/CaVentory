@@ -120,6 +120,10 @@ public class FrmMovimientos extends javax.swing.JFrame {
         btnRegistrar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         lblHistorial = new javax.swing.JLabel();
+        lblBuscar = new javax.swing.JLabel();
+        txtBuscar = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        btnTodos = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaMovimientos = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
@@ -127,10 +131,10 @@ public class FrmMovimientos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CaVentory - Entradas y salidas");
         setResizable(false);
-        setBackground(new java.awt.Color(245, 247, 250));
+        setBackground(new java.awt.Color(246, 248, 246));
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(31, 78, 121));
+        lblTitulo.setForeground(new java.awt.Color(35, 82, 60));
         lblTitulo.setText("Entradas y salidas");
 
         lblUsuario.setText("Usuario:");
@@ -154,7 +158,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtObservacion);
 
         btnRegistrar.setText("Registrar movimiento");
-        btnRegistrar.setBackground(new java.awt.Color(47, 111, 163));
+        btnRegistrar.setBackground(new java.awt.Color(47, 107, 79));
         btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setFocusPainted(false);
         btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +176,31 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
         lblHistorial.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         lblHistorial.setText("Movimientos recientes");
+
+        lblBuscar.setText("Buscar por producto, usuario u observación");
+
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setBackground(new java.awt.Color(47, 107, 79));
+        btnBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBuscar.setFocusPainted(false);
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        btnTodos.setText("Todos");
+        btnTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTodosActionPerformed(evt);
+            }
+        });
 
         tablaMovimientos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -228,6 +257,13 @@ public class FrmMovimientos extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblHistorial)
+                            .addComponent(lblBuscar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(10, 10, 10)
+                                .addComponent(btnTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 620, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCerrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(20, 20, 20))
@@ -264,7 +300,14 @@ public class FrmMovimientos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblHistorial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBuscar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnBuscar)
+                            .addComponent(btnTodos))
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(15, 15, 15)
                         .addComponent(btnCerrar)))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -308,6 +351,7 @@ public class FrmMovimientos extends javax.swing.JFrame {
             return;
         }
         try {
+            conexion.setAutoCommit(false);
             String sqlProducto = "SELECT id_producto, existencia FROM productos "
                     + "WHERE codigo = ?";
             PreparedStatement buscarProducto = conexion.prepareStatement(sqlProducto);
@@ -361,11 +405,17 @@ public class FrmMovimientos extends javax.swing.JFrame {
 
             guardarMovimiento.close();
             actualizarExistencia.close();
+            conexion.commit();
             Conexion.cerrar(conexion);
             cargarDatos();
             limpiarCampos();
             JOptionPane.showMessageDialog(this, "Movimiento registrado");
         } catch (SQLException e) {
+            try {
+                conexion.rollback();
+            } catch (SQLException error) {
+                System.err.println(error.toString());
+            }
             JOptionPane.showMessageDialog(this, "No se pudo registrar el movimiento");
             System.err.println(e.toString());
             Conexion.cerrar(conexion);
@@ -376,19 +426,58 @@ public class FrmMovimientos extends javax.swing.JFrame {
         limpiarCampos();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void buscarMovimiento() {
+        String texto = txtBuscar.getText().trim().toLowerCase();
+        if (texto.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Escribe un producto, usuario u observación");
+            return;
+        }
+
+        for (int fila = 0; fila < tablaMovimientos.getRowCount(); fila++) {
+            String producto = tablaMovimientos.getValueAt(fila, 1).toString().toLowerCase();
+            String usuario = tablaMovimientos.getValueAt(fila, 5).toString().toLowerCase();
+            String observacion = String.valueOf(
+                    tablaMovimientos.getValueAt(fila, 6)).toLowerCase();
+            if (producto.contains(texto) || usuario.contains(texto)
+                    || observacion.contains(texto)) {
+                tablaMovimientos.setRowSelectionInterval(fila, fila);
+                return;
+            }
+        }
+        JOptionPane.showMessageDialog(this, "No se encontró el movimiento");
+    }
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        buscarMovimiento();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        buscarMovimiento();
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void btnTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodosActionPerformed
+        txtBuscar.setText("");
+        cargarDatos();
+        tablaMovimientos.clearSelection();
+    }//GEN-LAST:event_btnTodosActionPerformed
+
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegistrar;
+    private javax.swing.JButton btnTodos;
     private javax.swing.JComboBox<String> cmbProducto;
     private javax.swing.JComboBox<String> cmbTipo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblCantidad;
+    private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblHistorial;
     private javax.swing.JLabel lblObservacion;
     private javax.swing.JLabel lblProducto;
@@ -398,5 +487,6 @@ public class FrmMovimientos extends javax.swing.JFrame {
     private javax.swing.JTable tablaMovimientos;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextArea txtObservacion;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
 }
